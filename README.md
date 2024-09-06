@@ -15,9 +15,9 @@ Für alle, die taktische rundenbasierte 2D-Schlachten lieben und explosive Actio
 Design
 
 <p>
-  <img src="./BattleScreen.jpeg" width="200">
-  <img src="./Info%20screen.jpeg" width="200">
-  <img src="./battleScreen%20.png" width="200">
+  <img src="./BattleScreen.png" width="200">
+  <img src="./InfoScreen.png" width="200">
+  <img src="./BattleScreen.png" width="200">
 </p>
 
 
