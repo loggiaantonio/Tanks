@@ -16,7 +16,7 @@ Design
 
 <p>
   <img src="./img/Screen1.png" width="200">
-  <img src="./img/Screen2.png" width="200">
+  <img src="./img/Screen2.png" width="400">
   <img src="./img/Screen3.png" width="200">
 </p>
 
