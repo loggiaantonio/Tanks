@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Tank : Identifiable, Codable{
+struct Tanks : Identifiable, Codable{
     let  id: Int
     let name : String
 }
