@@ -1,0 +1,12 @@
+{
+  "data" : [
+    {
+      "filename" : "tanks_spritesheetRetina.xml",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

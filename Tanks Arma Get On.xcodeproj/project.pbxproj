@@ -1,0 +1,385 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		233A666E2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A666D2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift */; };
+		233A66702C860420008FE60C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A666F2C860420008FE60C /* ContentView.swift */; };
+		233A66722C860421008FE60C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 233A66712C860421008FE60C /* Assets.xcassets */; };
+		233A66752C860421008FE60C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 233A66742C860421008FE60C /* Preview Assets.xcassets */; };
+		233A667C2C86046C008FE60C /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A667B2C86046C008FE60C /* GameScene.swift */; };
+		233A66B82C872299008FE60C /* GameBattleScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 233A66B72C872299008FE60C /* GameBattleScene.sks */; };
+		233A66BD2C89EB31008FE60C /* Tank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A66BC2C89EB31008FE60C /* Tank.swift */; };
+		233A66BF2C89EB80008FE60C /* TankDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A66BE2C89EB7F008FE60C /* TankDetails.swift */; };
+		233A66C22C89EBFD008FE60C /* TankApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A66C12C89EBFD008FE60C /* TankApi.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		233A666A2C860420008FE60C /* Tanks Arma Get On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tanks Arma Get On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		233A666D2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tanks_Arma_Get_OnApp.swift; sourceTree = "<group>"; };
+		233A666F2C860420008FE60C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		233A66712C860421008FE60C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		233A66742C860421008FE60C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		233A667B2C86046C008FE60C /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		233A66B72C872299008FE60C /* GameBattleScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameBattleScene.sks; sourceTree = "<group>"; };
+		233A66BC2C89EB31008FE60C /* Tank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tank.swift; sourceTree = "<group>"; };
+		233A66BE2C89EB7F008FE60C /* TankDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankDetails.swift; sourceTree = "<group>"; };
+		233A66C12C89EBFD008FE60C /* TankApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankApi.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		233A66672C860420008FE60C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		233A66612C860420008FE60C = {
+			isa = PBXGroup;
+			children = (
+				233A666C2C860420008FE60C /* Tanks Arma Get On */,
+				233A666B2C860420008FE60C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		233A666B2C860420008FE60C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				233A666A2C860420008FE60C /* Tanks Arma Get On.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		233A666C2C860420008FE60C /* Tanks Arma Get On */ = {
+			isa = PBXGroup;
+			children = (
+				233A66C02C89EBEB008FE60C /* Repository */,
+				233A66BB2C89EB11008FE60C /* Models */,
+				233A666D2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift */,
+				233A666F2C860420008FE60C /* ContentView.swift */,
+				233A66712C860421008FE60C /* Assets.xcassets */,
+				233A66732C860421008FE60C /* Preview Content */,
+				233A667B2C86046C008FE60C /* GameScene.swift */,
+				233A66B72C872299008FE60C /* GameBattleScene.sks */,
+			);
+			path = "Tanks Arma Get On";
+			sourceTree = "<group>";
+		};
+		233A66732C860421008FE60C /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				233A66742C860421008FE60C /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		233A66BB2C89EB11008FE60C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				233A66BC2C89EB31008FE60C /* Tank.swift */,
+				233A66BE2C89EB7F008FE60C /* TankDetails.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		233A66C02C89EBEB008FE60C /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				233A66C12C89EBFD008FE60C /* TankApi.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		233A66692C860420008FE60C /* Tanks Arma Get On */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 233A66782C860421008FE60C /* Build configuration list for PBXNativeTarget "Tanks Arma Get On" */;
+			buildPhases = (
+				233A66662C860420008FE60C /* Sources */,
+				233A66672C860420008FE60C /* Frameworks */,
+				233A66682C860420008FE60C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Tanks Arma Get On";
+			productName = "Tanks Arma Get On";
+			productReference = 233A666A2C860420008FE60C /* Tanks Arma Get On.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		233A66622C860420008FE60C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					233A66692C860420008FE60C = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = 233A66652C860420008FE60C /* Build configuration list for PBXProject "Tanks Arma Get On" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 233A66612C860420008FE60C;
+			productRefGroup = 233A666B2C860420008FE60C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				233A66692C860420008FE60C /* Tanks Arma Get On */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		233A66682C860420008FE60C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				233A66B82C872299008FE60C /* GameBattleScene.sks in Resources */,
+				233A66752C860421008FE60C /* Preview Assets.xcassets in Resources */,
+				233A66722C860421008FE60C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		233A66662C860420008FE60C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				233A66C22C89EBFD008FE60C /* TankApi.swift in Sources */,
+				233A66BF2C89EB80008FE60C /* TankDetails.swift in Sources */,
+				233A667C2C86046C008FE60C /* GameScene.swift in Sources */,
+				233A66702C860420008FE60C /* ContentView.swift in Sources */,
+				233A666E2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift in Sources */,
+				233A66BD2C89EB31008FE60C /* Tank.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		233A66762C860421008FE60C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		233A66772C860421008FE60C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		233A66792C860421008FE60C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Tanks Arma Get On/Preview Content\"";
+				DEVELOPMENT_TEAM = 2AAK35KYGQ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.loggiaAntonio.Tanks-Arma-Get-On";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		233A667A2C860421008FE60C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Tanks Arma Get On/Preview Content\"";
+				DEVELOPMENT_TEAM = 2AAK35KYGQ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.loggiaAntonio.Tanks-Arma-Get-On";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		233A66652C860420008FE60C /* Build configuration list for PBXProject "Tanks Arma Get On" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				233A66762C860421008FE60C /* Debug */,
+				233A66772C860421008FE60C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		233A66782C860421008FE60C /* Build configuration list for PBXNativeTarget "Tanks Arma Get On" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				233A66792C860421008FE60C /* Debug */,
+				233A667A2C860421008FE60C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 233A66622C860420008FE60C /* Project object */;
+}
