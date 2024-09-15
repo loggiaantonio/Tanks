@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct Tanks_Arma_Get_OnApp: App {
+    // Core Data Persistence Controller
+    let persistenceController = PersistenceController.shared
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment( \.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

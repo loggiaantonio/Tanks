@@ -13,9 +13,12 @@
 		233A66752C860421008FE60C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 233A66742C860421008FE60C /* Preview Assets.xcassets */; };
 		233A667C2C86046C008FE60C /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A667B2C86046C008FE60C /* GameScene.swift */; };
 		233A66B82C872299008FE60C /* GameBattleScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 233A66B72C872299008FE60C /* GameBattleScene.sks */; };
-		233A66BD2C89EB31008FE60C /* Tank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A66BC2C89EB31008FE60C /* Tank.swift */; };
+		233A66BD2C89EB31008FE60C /* Tanks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A66BC2C89EB31008FE60C /* Tanks.swift */; };
 		233A66BF2C89EB80008FE60C /* TankDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A66BE2C89EB7F008FE60C /* TankDetails.swift */; };
 		233A66C22C89EBFD008FE60C /* TankApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A66C12C89EBFD008FE60C /* TankApi.swift */; };
+		2363A3EA2C97400C00A95EDD /* TanksArmaDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2363A3E82C97400B00A95EDD /* TanksArmaDataModel.xcdatamodeld */; };
+		2363A3EC2C97404A00A95EDD /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363A3EB2C97404A00A95EDD /* PersistenceController.swift */; };
+		2363A3EE2C97445100A95EDD /* StartScreen .swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363A3ED2C97445100A95EDD /* StartScreen .swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,9 +29,12 @@
 		233A66742C860421008FE60C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		233A667B2C86046C008FE60C /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		233A66B72C872299008FE60C /* GameBattleScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameBattleScene.sks; sourceTree = "<group>"; };
-		233A66BC2C89EB31008FE60C /* Tank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tank.swift; sourceTree = "<group>"; };
+		233A66BC2C89EB31008FE60C /* Tanks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tanks.swift; sourceTree = "<group>"; };
 		233A66BE2C89EB7F008FE60C /* TankDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankDetails.swift; sourceTree = "<group>"; };
 		233A66C12C89EBFD008FE60C /* TankApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankApi.swift; sourceTree = "<group>"; };
+		2363A3E92C97400C00A95EDD /* TanksArmaDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TanksArmaDataModel.xcdatamodel; sourceTree = "<group>"; };
+		2363A3EB2C97404A00A95EDD /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		2363A3ED2C97445100A95EDD /* StartScreen .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StartScreen .swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +75,9 @@
 				233A66732C860421008FE60C /* Preview Content */,
 				233A667B2C86046C008FE60C /* GameScene.swift */,
 				233A66B72C872299008FE60C /* GameBattleScene.sks */,
+				2363A3E82C97400B00A95EDD /* TanksArmaDataModel.xcdatamodeld */,
+				2363A3EB2C97404A00A95EDD /* PersistenceController.swift */,
+				2363A3ED2C97445100A95EDD /* StartScreen .swift */,
 			);
 			path = "Tanks Arma Get On";
 			sourceTree = "<group>";
@@ -84,7 +93,7 @@
 		233A66BB2C89EB11008FE60C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				233A66BC2C89EB31008FE60C /* Tank.swift */,
+				233A66BC2C89EB31008FE60C /* Tanks.swift */,
 				233A66BE2C89EB7F008FE60C /* TankDetails.swift */,
 			);
 			path = Models;
@@ -169,12 +178,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2363A3EA2C97400C00A95EDD /* TanksArmaDataModel.xcdatamodeld in Sources */,
 				233A66C22C89EBFD008FE60C /* TankApi.swift in Sources */,
 				233A66BF2C89EB80008FE60C /* TankDetails.swift in Sources */,
 				233A667C2C86046C008FE60C /* GameScene.swift in Sources */,
 				233A66702C860420008FE60C /* ContentView.swift in Sources */,
+				2363A3EE2C97445100A95EDD /* StartScreen .swift in Sources */,
 				233A666E2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift in Sources */,
-				233A66BD2C89EB31008FE60C /* Tank.swift in Sources */,
+				233A66BD2C89EB31008FE60C /* Tanks.swift in Sources */,
+				2363A3EC2C97404A00A95EDD /* PersistenceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +392,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2363A3E82C97400B00A95EDD /* TanksArmaDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2363A3E92C97400C00A95EDD /* TanksArmaDataModel.xcdatamodel */,
+			);
+			currentVersion = 2363A3E92C97400C00A95EDD /* TanksArmaDataModel.xcdatamodel */;
+			name = TanksArmaDataModel.xcdatamodeld;
+			path = "/Users/antoniologgia/Documents/Tanks/Tanks Arma Get On/TanksArmaDataModel.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 233A66622C860420008FE60C /* Project object */;
 }
