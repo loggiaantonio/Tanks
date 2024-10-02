@@ -1,0 +1,12 @@
+{
+  "data" : [
+    {
+      "filename" : "tiles_spritesheet.xml",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
