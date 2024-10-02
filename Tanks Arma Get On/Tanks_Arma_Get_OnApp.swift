@@ -13,8 +13,9 @@ struct Tanks_Arma_Get_OnApp: App {
     let persistenceController = PersistenceController.shared
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            StartView()
                 .environment( \.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
+ 

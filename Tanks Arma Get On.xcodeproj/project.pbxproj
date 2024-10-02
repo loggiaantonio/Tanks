@@ -3,38 +3,68 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		231534AE2C97622800313540 /* startScreen.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 231534AD2C97622800313540 /* startScreen.mp3 */; };
+		231534B02C9765AA00313540 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 231534AF2C9765AA00313540 /* View.xib */; };
 		233A666E2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A666D2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift */; };
 		233A66702C860420008FE60C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A666F2C860420008FE60C /* ContentView.swift */; };
 		233A66722C860421008FE60C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 233A66712C860421008FE60C /* Assets.xcassets */; };
 		233A66752C860421008FE60C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 233A66742C860421008FE60C /* Preview Assets.xcassets */; };
 		233A667C2C86046C008FE60C /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A667B2C86046C008FE60C /* GameScene.swift */; };
-		233A66B82C872299008FE60C /* GameBattleScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 233A66B72C872299008FE60C /* GameBattleScene.sks */; };
 		233A66BD2C89EB31008FE60C /* Tanks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A66BC2C89EB31008FE60C /* Tanks.swift */; };
 		233A66BF2C89EB80008FE60C /* TankDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A66BE2C89EB7F008FE60C /* TankDetails.swift */; };
-		233A66C22C89EBFD008FE60C /* TankApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A66C12C89EBFD008FE60C /* TankApi.swift */; };
+		233A66C22C89EBFD008FE60C /* TankViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A66C12C89EBFD008FE60C /* TankViewModel.swift */; };
 		2363A3EA2C97400C00A95EDD /* TanksArmaDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2363A3E82C97400B00A95EDD /* TanksArmaDataModel.xcdatamodeld */; };
 		2363A3EC2C97404A00A95EDD /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363A3EB2C97404A00A95EDD /* PersistenceController.swift */; };
-		2363A3EE2C97445100A95EDD /* StartScreen .swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363A3ED2C97445100A95EDD /* StartScreen .swift */; };
+		2363A3EE2C97445100A95EDD /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363A3ED2C97445100A95EDD /* StartView.swift */; };
+		23B6C4EF2CAAD1CF00F2D8DB /* Rbsl.gif in Resources */ = {isa = PBXBuildFile; fileRef = 23B6C4EE2CAAD1CF00F2D8DB /* Rbsl.gif */; };
+		23C971F22CA2D7400043CBB2 /* MapSelectScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C971F12CA2D7400043CBB2 /* MapSelectScreenView.swift */; };
+		23C971F42CA2DBDD0043CBB2 /* MapSpriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C971F32CA2DBDD0043CBB2 /* MapSpriteView.swift */; };
+		23C971F72CA307B20043CBB2 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 23C971F62CA307B20043CBB2 /* SDWebImageSwiftUI */; };
+		23C971FB2CA55BE60043CBB2 /* SpriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C971FA2CA55BE60043CBB2 /* SpriteView.swift */; };
+		23C971FD2CA5A5FA0043CBB2 /* GameSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C971FC2CA5A5FA0043CBB2 /* GameSceneView.swift */; };
+		23C972012CA5B9250043CBB2 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 23C972002CA5B9250043CBB2 /* GameScene.sks */; };
+		23F6D41F2C982D78006087AF /* BattleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F6D41E2C982D78006087AF /* BattleScene.swift */; };
+		23F6D4222C982ECD006087AF /* TileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 23F6D4202C982ECD006087AF /* TileSet.sks */; };
+		23F6D4232C982ECD006087AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23F6D4212C982ECD006087AF /* Assets.xcassets */; };
+		23F6D4272C9C54E5006087AF /* SelectScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F6D4262C9C54E5006087AF /* SelectScreenView.swift */; };
+		23F6D4292C9C5575006087AF /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F6D4282C9C5575006087AF /* GameView.swift */; };
+		23F6D42B2C9DA405006087AF /* TanklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F6D42A2C9DA405006087AF /* TanklistView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		231534AD2C97622800313540 /* startScreen.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = startScreen.mp3; path = ../../../Desktop/startScreen.mp3; sourceTree = "<group>"; };
+		231534AF2C9765AA00313540 /* View.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		233A666A2C860420008FE60C /* Tanks Arma Get On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tanks Arma Get On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		233A666D2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tanks_Arma_Get_OnApp.swift; sourceTree = "<group>"; };
 		233A666F2C860420008FE60C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		233A66712C860421008FE60C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		233A66742C860421008FE60C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		233A667B2C86046C008FE60C /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
-		233A66B72C872299008FE60C /* GameBattleScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameBattleScene.sks; sourceTree = "<group>"; };
 		233A66BC2C89EB31008FE60C /* Tanks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tanks.swift; sourceTree = "<group>"; };
 		233A66BE2C89EB7F008FE60C /* TankDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankDetails.swift; sourceTree = "<group>"; };
-		233A66C12C89EBFD008FE60C /* TankApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankApi.swift; sourceTree = "<group>"; };
+		233A66C12C89EBFD008FE60C /* TankViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankViewModel.swift; sourceTree = "<group>"; };
 		2363A3E92C97400C00A95EDD /* TanksArmaDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TanksArmaDataModel.xcdatamodel; sourceTree = "<group>"; };
 		2363A3EB2C97404A00A95EDD /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
-		2363A3ED2C97445100A95EDD /* StartScreen .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StartScreen .swift"; sourceTree = "<group>"; };
+		2363A3ED2C97445100A95EDD /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		23B6C4EE2CAAD1CF00F2D8DB /* Rbsl.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Rbsl.gif; sourceTree = "<group>"; };
+		23C971F12CA2D7400043CBB2 /* MapSelectScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSelectScreenView.swift; sourceTree = "<group>"; };
+		23C971F32CA2DBDD0043CBB2 /* MapSpriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSpriteView.swift; sourceTree = "<group>"; };
+		23C971FA2CA55BE60043CBB2 /* SpriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteView.swift; sourceTree = "<group>"; };
+		23C971FC2CA5A5FA0043CBB2 /* GameSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneView.swift; sourceTree = "<group>"; };
+		23C972002CA5B9250043CBB2 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		23C972042CA6D5270043CBB2 /* startScreen.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = startScreen.mp3; sourceTree = "<group>"; };
+		23C972072CA6D59A0043CBB2 /* Rbsl.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Rbsl.gif; sourceTree = "<group>"; };
+		23C972082CA6E71A0043CBB2 /* startScreen.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = startScreen.mp3; path = ../../../../Desktop/startScreen.mp3; sourceTree = "<group>"; };
+		23F6D41E2C982D78006087AF /* BattleScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleScene.swift; sourceTree = "<group>"; };
+		23F6D4202C982ECD006087AF /* TileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TileSet.sks; sourceTree = "<group>"; };
+		23F6D4212C982ECD006087AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Tiles/Assets.xcassets; sourceTree = "<group>"; };
+		23F6D4262C9C54E5006087AF /* SelectScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectScreenView.swift; sourceTree = "<group>"; };
+		23F6D4282C9C5575006087AF /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		23F6D42A2C9DA405006087AF /* TanklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanklistView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23C971F72CA307B20043CBB2 /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +82,7 @@
 		233A66612C860420008FE60C = {
 			isa = PBXGroup;
 			children = (
+				23B6C4EE2CAAD1CF00F2D8DB /* Rbsl.gif */,
 				233A666C2C860420008FE60C /* Tanks Arma Get On */,
 				233A666B2C860420008FE60C /* Products */,
 			);
@@ -67,17 +99,20 @@
 		233A666C2C860420008FE60C /* Tanks Arma Get On */ = {
 			isa = PBXGroup;
 			children = (
+				23C972062CA6D5920043CBB2 /* Gif´s */,
+				23F6D4212C982ECD006087AF /* Assets.xcassets */,
+				23C972052CA6D54F0043CBB2 /* Tiles */,
+				231534AD2C97622800313540 /* startScreen.mp3 */,
+				23C972032CA6D51C0043CBB2 /* Sound */,
+				23C972022CA6D4CB0043CBB2 /* Scenes */,
+				23F6D4252C9C5496006087AF /* Viewmodel */,
+				23F6D4242C9C5485006087AF /* Views */,
 				233A66C02C89EBEB008FE60C /* Repository */,
 				233A66BB2C89EB11008FE60C /* Models */,
 				233A666D2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift */,
 				233A666F2C860420008FE60C /* ContentView.swift */,
 				233A66712C860421008FE60C /* Assets.xcassets */,
 				233A66732C860421008FE60C /* Preview Content */,
-				233A667B2C86046C008FE60C /* GameScene.swift */,
-				233A66B72C872299008FE60C /* GameBattleScene.sks */,
-				2363A3E82C97400B00A95EDD /* TanksArmaDataModel.xcdatamodeld */,
-				2363A3EB2C97404A00A95EDD /* PersistenceController.swift */,
-				2363A3ED2C97445100A95EDD /* StartScreen .swift */,
 			);
 			path = "Tanks Arma Get On";
 			sourceTree = "<group>";
@@ -93,6 +128,7 @@
 		233A66BB2C89EB11008FE60C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2363A3E82C97400B00A95EDD /* TanksArmaDataModel.xcdatamodeld */,
 				233A66BC2C89EB31008FE60C /* Tanks.swift */,
 				233A66BE2C89EB7F008FE60C /* TankDetails.swift */,
 			);
@@ -102,9 +138,68 @@
 		233A66C02C89EBEB008FE60C /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				233A66C12C89EBFD008FE60C /* TankApi.swift */,
+				2363A3EB2C97404A00A95EDD /* PersistenceController.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		23C972022CA6D4CB0043CBB2 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				23C972002CA5B9250043CBB2 /* GameScene.sks */,
+				23F6D41E2C982D78006087AF /* BattleScene.swift */,
+				233A667B2C86046C008FE60C /* GameScene.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		23C972032CA6D51C0043CBB2 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				23C972082CA6E71A0043CBB2 /* startScreen.mp3 */,
+				23C972042CA6D5270043CBB2 /* startScreen.mp3 */,
+			);
+			path = Sound;
+			sourceTree = "<group>";
+		};
+		23C972052CA6D54F0043CBB2 /* Tiles */ = {
+			isa = PBXGroup;
+			children = (
+				23F6D4202C982ECD006087AF /* TileSet.sks */,
+			);
+			path = Tiles;
+			sourceTree = "<group>";
+		};
+		23C972062CA6D5920043CBB2 /* Gif´s */ = {
+			isa = PBXGroup;
+			children = (
+				23C972072CA6D59A0043CBB2 /* Rbsl.gif */,
+			);
+			path = "Gif´s";
+			sourceTree = "<group>";
+		};
+		23F6D4242C9C5485006087AF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2363A3ED2C97445100A95EDD /* StartView.swift */,
+				23F6D4262C9C54E5006087AF /* SelectScreenView.swift */,
+				23F6D4282C9C5575006087AF /* GameView.swift */,
+				23F6D42A2C9DA405006087AF /* TanklistView.swift */,
+				23C971F12CA2D7400043CBB2 /* MapSelectScreenView.swift */,
+				23C971F32CA2DBDD0043CBB2 /* MapSpriteView.swift */,
+				23C971FA2CA55BE60043CBB2 /* SpriteView.swift */,
+				23C971FC2CA5A5FA0043CBB2 /* GameSceneView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		23F6D4252C9C5496006087AF /* Viewmodel */ = {
+			isa = PBXGroup;
+			children = (
+				231534AF2C9765AA00313540 /* View.xib */,
+				233A66C12C89EBFD008FE60C /* TankViewModel.swift */,
+			);
+			path = Viewmodel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -123,6 +218,9 @@
 			dependencies = (
 			);
 			name = "Tanks Arma Get On";
+			packageProductDependencies = (
+				23C971F62CA307B20043CBB2 /* SDWebImageSwiftUI */,
+			);
 			productName = "Tanks Arma Get On";
 			productReference = 233A666A2C860420008FE60C /* Tanks Arma Get On.app */;
 			productType = "com.apple.product-type.application";
@@ -143,7 +241,6 @@
 				};
 			};
 			buildConfigurationList = 233A66652C860420008FE60C /* Build configuration list for PBXProject "Tanks Arma Get On" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -151,6 +248,10 @@
 				Base,
 			);
 			mainGroup = 233A66612C860420008FE60C;
+			packageReferences = (
+				23C971F52CA307B20043CBB2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+			);
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 233A666B2C860420008FE60C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -165,9 +266,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				233A66B82C872299008FE60C /* GameBattleScene.sks in Resources */,
+				231534B02C9765AA00313540 /* View.xib in Resources */,
 				233A66752C860421008FE60C /* Preview Assets.xcassets in Resources */,
 				233A66722C860421008FE60C /* Assets.xcassets in Resources */,
+				23F6D4222C982ECD006087AF /* TileSet.sks in Resources */,
+				23C972012CA5B9250043CBB2 /* GameScene.sks in Resources */,
+				23B6C4EF2CAAD1CF00F2D8DB /* Rbsl.gif in Resources */,
+				23F6D4232C982ECD006087AF /* Assets.xcassets in Resources */,
+				231534AE2C97622800313540 /* startScreen.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,14 +284,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23F6D42B2C9DA405006087AF /* TanklistView.swift in Sources */,
 				2363A3EA2C97400C00A95EDD /* TanksArmaDataModel.xcdatamodeld in Sources */,
-				233A66C22C89EBFD008FE60C /* TankApi.swift in Sources */,
+				233A66C22C89EBFD008FE60C /* TankViewModel.swift in Sources */,
+				23C971FD2CA5A5FA0043CBB2 /* GameSceneView.swift in Sources */,
+				23C971F22CA2D7400043CBB2 /* MapSelectScreenView.swift in Sources */,
+				23F6D4272C9C54E5006087AF /* SelectScreenView.swift in Sources */,
+				23F6D41F2C982D78006087AF /* BattleScene.swift in Sources */,
 				233A66BF2C89EB80008FE60C /* TankDetails.swift in Sources */,
 				233A667C2C86046C008FE60C /* GameScene.swift in Sources */,
 				233A66702C860420008FE60C /* ContentView.swift in Sources */,
-				2363A3EE2C97445100A95EDD /* StartScreen .swift in Sources */,
+				2363A3EE2C97445100A95EDD /* StartView.swift in Sources */,
 				233A666E2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift in Sources */,
+				23C971F42CA2DBDD0043CBB2 /* MapSpriteView.swift in Sources */,
 				233A66BD2C89EB31008FE60C /* Tanks.swift in Sources */,
+				23C971FB2CA55BE60043CBB2 /* SpriteView.swift in Sources */,
+				23F6D4292C9C5575006087AF /* GameView.swift in Sources */,
 				2363A3EC2C97404A00A95EDD /* PersistenceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,8 +440,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -355,8 +468,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -393,6 +505,25 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		23C971F52CA307B20043CBB2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		23C971F62CA307B20043CBB2 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23C971F52CA307B20043CBB2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
+
 /* Begin XCVersionGroup section */
 		2363A3E82C97400B00A95EDD /* TanksArmaDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
@@ -400,8 +531,7 @@
 				2363A3E92C97400C00A95EDD /* TanksArmaDataModel.xcdatamodel */,
 			);
 			currentVersion = 2363A3E92C97400C00A95EDD /* TanksArmaDataModel.xcdatamodel */;
-			name = TanksArmaDataModel.xcdatamodeld;
-			path = "/Users/antoniologgia/Documents/Tanks/Tanks Arma Get On/TanksArmaDataModel.xcdatamodeld";
+			path = TanksArmaDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

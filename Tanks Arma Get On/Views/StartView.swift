@@ -1,47 +1,59 @@
 import SwiftUI
 import AVFoundation
+import SDWebImageSwiftUI
 
 struct StartView: View {
     @State private var audioPlayer: AVAudioPlayer?
+    @State private var isLoading = true
+    @State private var offsetX: CGFloat = -200 // Startposition
 
     var body: some View {
-        NavigationView {
-            ZStack {
-                Image("background")
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
-
-                Color.black.opacity(0.5)
-                    .ignoresSafeArea()
-
-                // NavigationLink für den Information-Button zur TankListView
-                NavigationLink(destination: TankListView()) {
-                    Image("information button")
+        if isLoading {
+            GeometryReader { geometry in
+                ZStack {
+                    Image("background")
                         .resizable()
-                        .scaledToFit()
-                        .frame(width: 400, height: 400)
-                }
-                .position(x: UIScreen.main.bounds.width - 50, y: 70)
+                        .scaledToFill()
+                        .edgesIgnoringSafeArea(.all)
+                        .frame(width: geometry.size.width, height: geometry.size.height)
 
-                Image("logo")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 250)
-                    .position(x: UIScreen.main.bounds.width / 2, y: 400)
+                    Color.black.opacity(0.5)
+                        .edgesIgnoringSafeArea(.all)
 
-                NavigationLink(destination: SelectScreenView()) {
-                    Image("play button")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 650, height: 500)
-                        .ignoresSafeArea()
+                    VStack {
+                        Spacer()
+
+                        Image("logo")
+                            .resizable()
+                            .frame(width: 500, height: 300)
+                            .padding(.bottom, 20)
+
+                        Spacer()
+
+                        // Hier wird die GIF-Datei angezeigt und bewegt
+                        AnimatedImage(name: "Rbsl.gif")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: geometry.size.width * 0.5, height: geometry.size.height * 0.2)
+                            .offset(x: offsetX, y: -30) // Hebt das GIF höher
+                            .onAppear {
+                                withAnimation(Animation.linear(duration: 5).repeatForever(autoreverses: true)) {
+                                    offsetX = geometry.size.width * 0.4 // Endposition
+                                }
+                            }
+                    }
+                    .padding(.horizontal, 20)
                 }
-                .position(x: UIScreen.main.bounds.width / 2.1, y: 650)
             }
-        }
-        .onAppear {
-            playBackgroundMusic()
+            .onAppear {
+                playBackgroundMusic()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    stopBackgroundMusic() // Musik stoppen, bevor der View wechselt
+                    isLoading = false
+                }
+            }
+        } else {
+            SelectScreenView()
         }
     }
 
@@ -51,7 +63,7 @@ struct StartView: View {
 
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.numberOfLoops = -1
+                audioPlayer?.numberOfLoops = 0
                 audioPlayer?.volume = 0.02
                 audioPlayer?.play()
             } catch {
@@ -59,8 +71,15 @@ struct StartView: View {
             }
         }
     }
+
+    func stopBackgroundMusic() {
+        audioPlayer?.stop()
+    }
 }
 
-#Preview {
-    StartView()
+struct StartView_Previews: PreviewProvider {
+    static var previews: some View {
+        StartView()
+            .previewInterfaceOrientation(.landscapeLeft)
+    }
 }

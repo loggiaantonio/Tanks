@@ -8,6 +8,9 @@
 import Foundation
 
 struct Tanks : Identifiable, Codable{
-    let  id: Int
-    let name : String
-}
+    let id: Int
+        let name: String
+        let category: String?
+        let image: String?
+        let weapon: String?
+    }

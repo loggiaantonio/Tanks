@@ -13,7 +13,7 @@ class TankViewModel: ObservableObject {
     @Published var tanks: [Tanks] = []
 
     func fetchTanks() {
-        guard let url = URL(string: "https://wtvehiclesapi.sgambe.serv00.net/vehicles/search") else { return }
+        guard let url = URL(string: "https://tanks.gg/list") else { return } // Die URL muss eine API sein
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
