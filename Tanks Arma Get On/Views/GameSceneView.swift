@@ -10,29 +10,32 @@ import SpriteKit
 
 // UIViewRepresentable zur Darstellung von SpriteKit-Szenen in SwiftUI
 struct GameSceneView: UIViewRepresentable {
-    
+    @Binding var showWeaponMenu: Bool
+    @Binding var selectedWeapon: Weapon?
+
     func makeUIView(context: Context) -> SKView {
         let skView = SKView()
         
-        // Initialisiere die Szene mit der Bildschirmgröße
         let scene = GameScene(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
-        
-        scene.scaleMode = .aspectFill // Fülle den gesamten Bereich aus
-        skView.presentScene(scene) // Zeige die Szene an
+        scene.scaleMode = .aspectFill
+        skView.presentScene(scene)
         
         skView.ignoresSiblingOrder = true
-        skView.showsFPS = true // Zeige die FPS an, um die Leistung zu prüfen
-        skView.showsNodeCount = true // Zeige die Anzahl der Knoten in der Szene an
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("ShowWeaponMenu"), object: nil, queue: .main) { _ in
+            showWeaponMenu = true
+        }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("HideWeaponMenu"), object: nil, queue: .main) { _ in
+            showWeaponMenu = false
+        }
         
         return skView
     }
-    
-    func updateUIView(_ uiView: SKView, context: Context) {
-        // Handle Änderungen, wenn nötig (z. B. Szene aktualisieren)
-    }
-}
 
-#Preview {
-    GameSceneView()
-        .edgesIgnoringSafeArea(.all) // Vorschau über den gesamten Bildschirm
+    func updateUIView(_ uiView: SKView, context: Context) {
+        // Änderungen handhaben, falls notwendig
+    }
 }

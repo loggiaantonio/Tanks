@@ -27,6 +27,8 @@
 		23C971FB2CA55BE60043CBB2 /* SpriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C971FA2CA55BE60043CBB2 /* SpriteView.swift */; };
 		23C971FD2CA5A5FA0043CBB2 /* GameSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C971FC2CA5A5FA0043CBB2 /* GameSceneView.swift */; };
 		23C972012CA5B9250043CBB2 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 23C972002CA5B9250043CBB2 /* GameScene.sks */; };
+		23F01B5D2CB022E60003F8DC /* Weapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F01B5C2CB022CF0003F8DC /* Weapon.swift */; };
+		23F01B5F2CB060F00003F8DC /* WeaponMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F01B5E2CB060E70003F8DC /* WeaponMenuView.swift */; };
 		23F6D41F2C982D78006087AF /* BattleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F6D41E2C982D78006087AF /* BattleScene.swift */; };
 		23F6D4222C982ECD006087AF /* TileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 23F6D4202C982ECD006087AF /* TileSet.sks */; };
 		23F6D4232C982ECD006087AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23F6D4212C982ECD006087AF /* Assets.xcassets */; };
@@ -59,6 +61,8 @@
 		23C972042CA6D5270043CBB2 /* startScreen.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = startScreen.mp3; sourceTree = "<group>"; };
 		23C972072CA6D59A0043CBB2 /* Rbsl.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Rbsl.gif; sourceTree = "<group>"; };
 		23C972082CA6E71A0043CBB2 /* startScreen.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = startScreen.mp3; path = ../../../../Desktop/startScreen.mp3; sourceTree = "<group>"; };
+		23F01B5C2CB022CF0003F8DC /* Weapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weapon.swift; sourceTree = "<group>"; };
+		23F01B5E2CB060E70003F8DC /* WeaponMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponMenuView.swift; sourceTree = "<group>"; };
 		23F6D41E2C982D78006087AF /* BattleScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleScene.swift; sourceTree = "<group>"; };
 		23F6D4202C982ECD006087AF /* TileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TileSet.sks; sourceTree = "<group>"; };
 		23F6D4212C982ECD006087AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Tiles/Assets.xcassets; sourceTree = "<group>"; };
@@ -99,6 +103,7 @@
 		233A666C2C860420008FE60C /* Tanks Arma Get On */ = {
 			isa = PBXGroup;
 			children = (
+				23F01B5B2CB022BD0003F8DC /* Weapon */,
 				23C972062CA6D5920043CBB2 /* Gif´s */,
 				23F6D4212C982ECD006087AF /* Assets.xcassets */,
 				23C972052CA6D54F0043CBB2 /* Tiles */,
@@ -178,9 +183,18 @@
 			path = "Gif´s";
 			sourceTree = "<group>";
 		};
+		23F01B5B2CB022BD0003F8DC /* Weapon */ = {
+			isa = PBXGroup;
+			children = (
+				23F01B5C2CB022CF0003F8DC /* Weapon.swift */,
+			);
+			path = Weapon;
+			sourceTree = "<group>";
+		};
 		23F6D4242C9C5485006087AF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				23F01B5E2CB060E70003F8DC /* WeaponMenuView.swift */,
 				2363A3ED2C97445100A95EDD /* StartView.swift */,
 				23F6D4262C9C54E5006087AF /* SelectScreenView.swift */,
 				23F6D4282C9C5575006087AF /* GameView.swift */,
@@ -300,7 +314,9 @@
 				233A66BD2C89EB31008FE60C /* Tanks.swift in Sources */,
 				23C971FB2CA55BE60043CBB2 /* SpriteView.swift in Sources */,
 				23F6D4292C9C5575006087AF /* GameView.swift in Sources */,
+				23F01B5D2CB022E60003F8DC /* Weapon.swift in Sources */,
 				2363A3EC2C97404A00A95EDD /* PersistenceController.swift in Sources */,
+				23F01B5F2CB060F00003F8DC /* WeaponMenuView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
