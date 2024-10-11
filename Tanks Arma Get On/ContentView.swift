@@ -21,6 +21,7 @@ struct ContentView: View {
                     selectedWeapon = weapon
                     NotificationCenter.default.post(name: NSNotification.Name("HideWeaponMenu"), object: nil)
                     print("Selected Weapon: \(weapon.name)")
+                    print("Displaying WeaponMenuView") // Debug-Ausgabe
                 })
                 .transition(.move(edge: .bottom))
             }

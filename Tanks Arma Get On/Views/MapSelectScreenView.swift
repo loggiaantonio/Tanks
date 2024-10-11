@@ -16,7 +16,7 @@ struct MapSelectScreenView: View {
                 .ignoresSafeArea()
 
             GeometryReader { geometry in
-                VStack {
+                VStack(spacing: 70) {
                     // Titel oben anzeigen
                     Text("Map Choice!")
                         .font(.title)
@@ -28,7 +28,7 @@ struct MapSelectScreenView: View {
                             animateTitle = true
                         }
                         .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: animateTitle)
-                        .padding(.top, geometry.safeAreaInsets.top + 80)
+                        .padding(.top, geometry.safeAreaInsets.top + 30)
 
                     ScrollView(.horizontal) {
                         LazyHGrid(rows: [GridItem(.flexible())], spacing: 20) {

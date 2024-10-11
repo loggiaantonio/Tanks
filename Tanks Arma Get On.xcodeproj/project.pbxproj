@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23025B382CB917EF007AD58C /* PauseMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23025B372CB917E9007AD58C /* PauseMenuView.swift */; };
 		231534AE2C97622800313540 /* startScreen.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 231534AD2C97622800313540 /* startScreen.mp3 */; };
 		231534B02C9765AA00313540 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 231534AF2C9765AA00313540 /* View.xib */; };
 		233A666E2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A666D2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		23025B372CB917E9007AD58C /* PauseMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseMenuView.swift; sourceTree = "<group>"; };
 		231534AD2C97622800313540 /* startScreen.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = startScreen.mp3; path = ../../../Desktop/startScreen.mp3; sourceTree = "<group>"; };
 		231534AF2C9765AA00313540 /* View.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		233A666A2C860420008FE60C /* Tanks Arma Get On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tanks Arma Get On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,6 +196,7 @@
 		23F6D4242C9C5485006087AF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				23025B372CB917E9007AD58C /* PauseMenuView.swift */,
 				23F01B5E2CB060E70003F8DC /* WeaponMenuView.swift */,
 				2363A3ED2C97445100A95EDD /* StartView.swift */,
 				23F6D4262C9C54E5006087AF /* SelectScreenView.swift */,
@@ -305,6 +308,7 @@
 				23C971F22CA2D7400043CBB2 /* MapSelectScreenView.swift in Sources */,
 				23F6D4272C9C54E5006087AF /* SelectScreenView.swift in Sources */,
 				23F6D41F2C982D78006087AF /* BattleScene.swift in Sources */,
+				23025B382CB917EF007AD58C /* PauseMenuView.swift in Sources */,
 				233A66BF2C89EB80008FE60C /* TankDetails.swift in Sources */,
 				233A667C2C86046C008FE60C /* GameScene.swift in Sources */,
 				233A66702C860420008FE60C /* ContentView.swift in Sources */,
