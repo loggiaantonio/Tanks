@@ -55,6 +55,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var hasFired = false // Variable zum Überprüfen, ob bereits geschossen wurde
 
+  
+    
+    func moveTankLeft() {
+        currentPanzer?.position.x -= 10
+        if currentPanzer?.xScale != -1 {
+            currentPanzer?.xScale = -1 // Dreht den Panzer nach links, ohne ihn physisch zu rotieren
+        }
+    }
+
+
+    func moveTankRight() {
+        currentPanzer?.position.x += 10
+        if currentPanzer?.xScale != 1 {
+            currentPanzer?.xScale = 1 // Dreht den Panzer nach rechts, ohne ihn physisch zu rotieren
+        }
+    }
     
     
     func endTurnAndManageNextAction() {
@@ -163,6 +179,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             bullet.physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
             
+            // Anpassung der Blickrichtung des Feindpanzers basierend auf der Richtung zum Zielpanzer
+            if let enemyPanzer = currentPanzer {
+                if targetPanzerNode.position.x < enemyPanzer.position.x {
+                    enemyPanzer.xScale = -1 // Feind schaut nach links
+                } else {
+                    enemyPanzer.xScale = 1 // Feind schaut nach rechts
+                }
+            }
             print("Gegner schießt auf \(targetPanzer) mit Winkel: \(randomAngle), Power: \(randomPower)")
             
             // Nach dem Schuss: Übergang zum nächsten Spieler
@@ -170,6 +194,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.endTurnAndSwitchToNextPanzerOrEnemy()
             }
         }
+    
     }
     // Funktion zum Wechseln zum nächsten Spieler-Panzer nach dem Gegnerzug
     func switchToNextPlayerPanzer() {
@@ -541,17 +566,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Wechsel zum nächsten Panzer oder führe Aktionen für den aktuellen Panzer aus
         endTurnAndManageNextAction()
     }
-    
-    func moveTankLeft() {
-        currentPanzer?.position.x -= 10
-    }
-    
-    func moveTankRight() {
-        currentPanzer?.position.x += 10
-    }
-    
-    
-    
+        
     
     func addPowerBar() {
         // Die Bildschirmgröße bestimmen, basierend auf der Größe des view
