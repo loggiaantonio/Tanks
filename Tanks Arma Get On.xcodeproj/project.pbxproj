@@ -21,6 +21,8 @@
 		2379A6572CC0444000B7D82A /* ChuckNorritsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379A6562CC0442C00B7D82A /* ChuckNorritsViewModel.swift */; };
 		2379A6592CC0446C00B7D82A /* ChuckNorisJoke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379A6582CC0445E00B7D82A /* ChuckNorisJoke.swift */; };
 		2379A65B2CC0465C00B7D82A /* ChuckNorrisJokeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379A65A2CC0464F00B7D82A /* ChuckNorrisJokeView.swift */; };
+		2379A6602CC04C8500B7D82A /* FavoriteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379A65F2CC04C6E00B7D82A /* FavoriteListView.swift */; };
+		2379A6652CC04E4D00B7D82A /* FavoriteDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2379A6632CC04E4D00B7D82A /* FavoriteDataModel.xcdatamodeld */; };
 		23B6C4EF2CAAD1CF00F2D8DB /* Rbsl.gif in Resources */ = {isa = PBXBuildFile; fileRef = 23B6C4EE2CAAD1CF00F2D8DB /* Rbsl.gif */; };
 		23C971F22CA2D7400043CBB2 /* MapSelectScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C971F12CA2D7400043CBB2 /* MapSelectScreenView.swift */; };
 		23C971F42CA2DBDD0043CBB2 /* MapSpriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C971F32CA2DBDD0043CBB2 /* MapSpriteView.swift */; };
@@ -53,6 +55,8 @@
 		2379A6562CC0442C00B7D82A /* ChuckNorritsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChuckNorritsViewModel.swift; sourceTree = "<group>"; };
 		2379A6582CC0445E00B7D82A /* ChuckNorisJoke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChuckNorisJoke.swift; sourceTree = "<group>"; };
 		2379A65A2CC0464F00B7D82A /* ChuckNorrisJokeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChuckNorrisJokeView.swift; sourceTree = "<group>"; };
+		2379A65F2CC04C6E00B7D82A /* FavoriteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListView.swift; sourceTree = "<group>"; };
+		2379A6642CC04E4D00B7D82A /* FavoriteDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FavoriteDataModel.xcdatamodel; sourceTree = "<group>"; };
 		23B6C4EE2CAAD1CF00F2D8DB /* Rbsl.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Rbsl.gif; sourceTree = "<group>"; };
 		23C971F12CA2D7400043CBB2 /* MapSelectScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSelectScreenView.swift; sourceTree = "<group>"; };
 		23C971F32CA2DBDD0043CBB2 /* MapSpriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSpriteView.swift; sourceTree = "<group>"; };
@@ -135,6 +139,7 @@
 			children = (
 				2379A6582CC0445E00B7D82A /* ChuckNorisJoke.swift */,
 				2363A3E82C97400B00A95EDD /* TanksArmaDataModel.xcdatamodeld */,
+				2379A6632CC04E4D00B7D82A /* FavoriteDataModel.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -193,6 +198,7 @@
 		23F6D4242C9C5485006087AF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2379A65F2CC04C6E00B7D82A /* FavoriteListView.swift */,
 				2379A65A2CC0464F00B7D82A /* ChuckNorrisJokeView.swift */,
 				23025B372CB917E9007AD58C /* PauseMenuView.swift */,
 				23F01B5E2CB060E70003F8DC /* WeaponMenuView.swift */,
@@ -312,9 +318,11 @@
 				23C971F42CA2DBDD0043CBB2 /* MapSpriteView.swift in Sources */,
 				23C971FB2CA55BE60043CBB2 /* SpriteView.swift in Sources */,
 				23F6D4292C9C5575006087AF /* GameView.swift in Sources */,
+				2379A6652CC04E4D00B7D82A /* FavoriteDataModel.xcdatamodeld in Sources */,
 				23F01B5D2CB022E60003F8DC /* Weapon.swift in Sources */,
 				2379A6572CC0444000B7D82A /* ChuckNorritsViewModel.swift in Sources */,
 				2379A6592CC0446C00B7D82A /* ChuckNorisJoke.swift in Sources */,
+				2379A6602CC04C8500B7D82A /* FavoriteListView.swift in Sources */,
 				2363A3EC2C97404A00A95EDD /* PersistenceController.swift in Sources */,
 				23F01B5F2CB060F00003F8DC /* WeaponMenuView.swift in Sources */,
 			);
@@ -548,6 +556,16 @@
 			);
 			currentVersion = 2363A3E92C97400C00A95EDD /* TanksArmaDataModel.xcdatamodel */;
 			path = TanksArmaDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		2379A6632CC04E4D00B7D82A /* FavoriteDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2379A6642CC04E4D00B7D82A /* FavoriteDataModel.xcdatamodel */,
+			);
+			currentVersion = 2379A6642CC04E4D00B7D82A /* FavoriteDataModel.xcdatamodel */;
+			path = FavoriteDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

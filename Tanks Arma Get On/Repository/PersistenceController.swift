@@ -14,7 +14,8 @@ struct PersistenceController {
     let container: NSPersistentContainer
 
     init(inMemory: Bool = false) {
-        container = NSPersistentContainer(name: "TanksArmaDataModel") // Dein Core Data Model Name
+        // Der Name hier muss dem Namen deines Core Data Models entsprechen
+        container = NSPersistentContainer(name: "FavoriteDataModel") // Dein Core Data Model Name
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
         }

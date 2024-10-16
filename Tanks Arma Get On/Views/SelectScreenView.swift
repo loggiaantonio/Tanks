@@ -128,6 +128,20 @@ struct SelectScreenView: View {
                         }
                     }
                     Spacer()
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            NavigationLink(destination: FavoritesListView()) {
+                                Image(systemName: "star.fill")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                    .foregroundColor(.yellow)
+                                    .padding()
+                            }
+                            .padding([.bottom, .trailing], -0)
+                        }
+                    }
                 }
                 .padding(.top, 40)
                 .padding(.trailing, 0)
