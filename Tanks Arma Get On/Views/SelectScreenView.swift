@@ -10,9 +10,8 @@ struct SelectScreenView: View {
         "tanks_tankDesert2", "tanks_tankDesert3", "tanks_tankDesert4", "tanks_tankDesert5"
     ]
     
-    // Engeres Grid mit kleineren Abständen
     private let threeColumnGrid = [
-        GridItem(.flexible(minimum: 40), spacing: 10), // Abstand zwischen den Spalten reduziert
+        GridItem(.flexible(minimum: 40), spacing: 10),
         GridItem(.flexible(minimum: 40), spacing: 10),
         GridItem(.flexible(minimum: 40), spacing: 10)
     ]
@@ -20,40 +19,36 @@ struct SelectScreenView: View {
     var body: some View {
         NavigationView{
             ZStack {
-                // Hintergrundbild, das den Bildschirm füllt
                 Image("militaryBg")
                     .resizable()
                     .scaledToFill()
-                    .ignoresSafeArea() // Hintergrund ignoriert die Safe Area und füllt den ganzen Bildschirm
+                    .ignoresSafeArea()
                 
                 GeometryReader { geometry in
                     VStack(spacing: 10) {
                         
-                        // WOW-Effekt für den Titel "Choose 4 Tanks!"
                         Text("Choose 4 Tanks!")
                             .font(.title3)
                             .fontWeight(.bold)
                             .foregroundColor(animateTitle ? .yellow : .white)
                             .scaleEffect(animateTitle ? 1.2 : 1.0)
-                            .onAppear {   // Animation nur für den Titel "Map Choice!"
+                            .onAppear {
                                 animateTitle = true
                             }
-                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: animateTitle)
-                            .padding(.top, geometry.safeAreaInsets.top + 30) // Abstand zum oberen Rand vergrößert
+                            .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: animateTitle)
+                            .padding(.top, geometry.safeAreaInsets.top + 30)
                         
-                        Spacer() // Fügt etwas Platz zwischen dem Text und den Panzern hinzu
+                        Spacer()
                         
-                        // Flexibleres Grid mit 3 Spalten
-                        LazyVGrid(columns: threeColumnGrid, alignment: .center, spacing: 15) { // Spacing zwischen den Panzern
+                        LazyVGrid(columns: threeColumnGrid, alignment: .center, spacing: 15) {
                             ForEach(panzerOptions, id: \.self) { panzer in
                                 Button(action: {
                                     togglePanzerSelection(panzer)
                                 }) {
                                     ZStack {
-                                        // Militärischer Hintergrund für jeden Panzer (Grau und Grün)
                                         LinearGradient(gradient: Gradient(colors: [Color.gray, Color.black.opacity(0.7)]),
                                                        startPoint: .topLeading, endPoint: .bottomTrailing)
-                                            .frame(width: 70, height: 70) // Kleinere Größe für mehr Platz
+                                            .frame(width: 70, height: 70)
                                             .cornerRadius(10)
                                             .scaleEffect(selectedPanzers.contains(panzer) ? 1.1 : 1.0)
                                             .animation(.easeInOut(duration: 0.2), value: selectedPanzers.contains(panzer))
@@ -65,18 +60,16 @@ struct SelectScreenView: View {
                                             .animation(.easeInOut(duration: 0.2), value: selectedPanzers.contains(panzer))
                                     }
                                 }
-                                .disabled(selectedPanzers.count >= 4 && !selectedPanzers.contains(panzer)) // Max 4 Panzer auswählbar
+                                .disabled(selectedPanzers.count >= 4 && !selectedPanzers.contains(panzer))
                             }
                             
-                            // Fragezeichen für Zufallsauswahl
                             Button(action: {
                                 selectRandomPanzers()
                             }) {
                                 ZStack {
-                                    // Militärischer Hintergrund für das Fragezeichen
                                     LinearGradient(gradient: Gradient(colors: [Color.gray, Color.black.opacity(0.7)]),
                                                    startPoint: .topLeading, endPoint: .bottomTrailing)
-                                        .frame(width: 70, height: 70) // Kleinere Größe für mehr Platz
+                                        .frame(width: 70, height: 70)
                                         .cornerRadius(10)
                                     
                                     Image(systemName: "questionmark")
@@ -87,10 +80,9 @@ struct SelectScreenView: View {
                             }
                         }
                         
-                        Spacer() // Fügt einen klaren Abstand zwischen den Panzern und dem Button ein
+                        Spacer()
                         
-                        // Button zum Bestätigen der Auswahl, wenn 4 Panzer gewählt wurden
-                        if selectedPanzers.count == 4 { // Button nur anzeigen, wenn 4 Panzer gewählt sind
+                        if selectedPanzers.count == 4 {
                             NavigationLink(destination: MapSelectScreenView(selectedPanzers: selectedPanzers)) {
                                 Text("Map Choice!")
                                     .font(.title)
@@ -98,14 +90,30 @@ struct SelectScreenView: View {
                                     .background(Color.green)
                                     .foregroundColor(.white)
                                     .cornerRadius(10)
-                                    .frame(maxWidth: 200) // Feste Breite für den Button
+                                    .frame(maxWidth: 200)
                             }
-                            .padding(.bottom, 40) // Abstand nach unten
+                            .padding(.bottom, 40)
                         }
                     }
                 }
                 
-                // Info-Button oben rechts, über allen anderen Elementen
+                // Chuck Norris Bild und Navigation oben links
+                VStack {
+                    HStack {
+                        NavigationLink(destination: ChuckNorrisJokeView()) {
+                            Image("ChuckNorris")
+                                .resizable()
+                                .frame(width: 70, height: 60)
+                                .cornerRadius(10)
+                                .padding()
+                        }
+                        Spacer()
+                    }
+                    Spacer()
+                }
+                .padding(.top, 40)
+                .padding(.leading,-10)
+
                 VStack {
                     HStack {
                         Spacer()

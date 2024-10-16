@@ -1,7 +1,7 @@
 import SpriteKit
 import SwiftUI
 
-// Definiere die Kollisionskategorien (wie gehabt)
+// Definiere die Kollisionskategorien
 struct CollisionCategory {
     static let grassTile: UInt32 = 0x1 << 0 // 1
     static let panzer: UInt32 = 0x1 << 1 // 2
@@ -60,7 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func moveTankLeft() {
         currentPanzer?.position.x -= 10
         if currentPanzer?.xScale != -1 {
-            currentPanzer?.xScale = -1 // Dreht den Panzer nach links, ohne ihn physisch zu rotieren
+            currentPanzer?.xScale = -1
         }
     }
 
@@ -68,7 +68,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func moveTankRight() {
         currentPanzer?.position.x += 10
         if currentPanzer?.xScale != 1 {
-            currentPanzer?.xScale = 1 // Dreht den Panzer nach rechts, ohne ihn physisch zu rotieren
+            currentPanzer?.xScale = 1 // Dreht den Panzer nach rechts
         }
     }
     
@@ -76,37 +76,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func endTurnAndManageNextAction() {
         hasFired = false
 
-        // Hide the weapon menu before transitioning to the next turn
+        // Versteckt das Menu
         hideWeaponMenu()
 
-        // Determine if the current turn is for the player or the enemy
+        // Feststellen, ob der aktuelle Zug für den Spieler oder den Feind ist
         if currentTurnIndex % 2 == 0 {
             // Player's turn
             if currentPanzerIndex < selectedPanzers.count {
                 if let nextPanzer = childNode(withName: selectedPanzers[currentPanzerIndex]) as? SKSpriteNode {
                     currentPanzer = nextPanzer
                     showArrowAboveCurrentPanzer()
-                    showWeaponMenu() // Show the weapon menu for the player's turn
+                    showWeaponMenu()   // Anzeigen des Waffenmenüs für den Zug des Spielers
                 }
             }
         } else {
             // Enemy's turn
-            let enemyIndex = currentPanzerIndex / 2 // Use a different index for enemy panzers
+            let enemyIndex = currentPanzerIndex / 2 // Verwenden Sie einen anderen Index für feindliche Panzer
             if enemyIndex < enemyPanzers.count {
                 if let enemyPanzer = childNode(withName: enemyPanzers[enemyIndex]) as? SKSpriteNode {
                     currentPanzer = enemyPanzer
-                    enemyTurn() // Let the enemy fire
+                    enemyTurn() // Feind Schießt
                 }
             }
         }
 
-        // Move to the next turn
+        // Next Turn
         currentTurnIndex += 1
         if currentTurnIndex >= (selectedPanzers.count + enemyPanzers.count) {
-            currentTurnIndex = 0 // Restart from the beginning
-            currentPanzerIndex = 0 // Reset player index
+            currentTurnIndex = 0 // Von Vorne Beginnen
+            currentPanzerIndex = 0 // Resetet den player index
         } else if currentTurnIndex % 2 == 0 {
-            // Only increment the player's panzer index during the player's turns
+            // Erhöhe den Panzerindex des Spielers nur, wenn dieser am Zug ist
             currentPanzerIndex += 1
         }
     }
@@ -121,27 +121,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if let nextPanzer = childNode(withName: selectedPanzers[currentPanzerIndex]) as? SKSpriteNode {
                     currentPanzer = nextPanzer
                     showArrowAboveCurrentPanzer()
-                    endTurnAndManageNextAction()// Show weapon menu for the player
+                    endTurnAndManageNextAction()// Waffenmenü für den Spieler anzeigen
                 }
             }
         } else {
             // Enemy turn
-            let enemyIndex = currentPanzerIndex / 2 // Use the same index for the enemy
+            let enemyIndex = currentPanzerIndex / 2 // Verwenden Sie denselben Index für den Feind
             if enemyIndex < enemyPanzers.count {
                 if let enemyPanzer = childNode(withName: enemyPanzers[enemyIndex]) as? SKSpriteNode {
                     currentPanzer = enemyPanzer
-                    enemyTurn() // Enemy fires
+                    enemyTurn() // Enemy Schießt
                 }
             }
         }
 
-        // Increment the turn index and go to the next tank
+        // Erhöhen Sie den Abbiegeindex und gehen Sie zum nächsten Tank
         currentTurnIndex += 1
         if currentTurnIndex >= (selectedPanzers.count + enemyPanzers.count) {
-            currentTurnIndex = 0 // Restart from the beginning
-            currentPanzerIndex = 0 // Reset player index
+            currentTurnIndex = 0 // Von Vorne beginnen
+            currentPanzerIndex = 0 // Resetet player index
         } else if currentTurnIndex % 2 == 0 {
-            // Only increment `currentPanzerIndex` on player turns
+            // Erhöhe `currentPanzerIndex` nur, wenn der Spieler an der Reihe ist
             currentPanzerIndex += 1
         }
     }
@@ -462,24 +462,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let location = touch.location(in: self)
         let nodesAtLocation = nodes(at: location)
 
-        // Check which node was touched
+        // Prüfen, welcher Knoten berührt wurde
         for node in nodesAtLocation {
             if node.name == "leftButton" {
                 moveTankLeft()
             } else if node.name == "rightButton" {
                 moveTankRight()
             } else if node.name == "upButton" {
-                aimTankUp() // Increase aim angle
+                aimTankUp()
             } else if node.name == "downButton" {
-                aimTankDown() // Decrease aim angle
+                aimTankDown()
             } else if node.name == "shootButton" {
-                shoot() // Trigger the shoot function
+                shoot()
             }
         }
     }
     
     func shoot() {
-        // Ensure the player hasn't already fired
         if hasFired {
             print("Es wurde bereits geschossen! Warte auf die nächste Runde.")
             return
@@ -487,18 +486,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         hasFired = true
 
-        // Ensure the selected weapon and current panzer are valid
         guard var selectedWeapon = selectedWeapon, let currentPanzer = currentPanzer else { return }
 
-        // Dynamically assign the bullet image name based on the weapon name
         let bulletImageName = "\(selectedWeapon.name)Fly"
 
-        // Create the projectile (bullet)
         bullet = SKSpriteNode(imageNamed: bulletImageName)
         bullet?.size = CGSize(width: 50, height: 20) // Set the size of the projectile
         bullet?.position = CGPoint(x: currentPanzer.position.x, y: currentPanzer.position.y + currentPanzer.size.height / 2)
 
-        // Add physics to the bullet
         bullet?.physicsBody = SKPhysicsBody(rectangleOf: bullet!.size)
         bullet?.physicsBody?.isDynamic = true
         bullet?.physicsBody?.categoryBitMask = CollisionCategory.bullet
@@ -506,7 +501,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bullet?.physicsBody?.contactTestBitMask = CollisionCategory.enemyPanzer | CollisionCategory.grassTile
         bullet?.physicsBody?.usesPreciseCollisionDetection = true
 
-        // Add the bullet to the scene
         addChild(bullet!)
 
         // Berechne die Schusskraft basierend auf der Höhe der Powerbar
@@ -729,12 +723,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    // Berühre den Bildschirm, um den Panzer zu platzieren
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
         let nodesAtLocation = nodes(at: location)
-        
+
         // Überprüfen, ob das Spiel bereits begonnen hat
         if gameStarted {
             // Spiel hat begonnen, zeige Waffenmenü bei Tap auf einen Panzer
@@ -751,30 +744,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 print("touchesEnded: Fehler - Kein Panzer, keine Kachel oder keine Berührung erkannt")
                 return
             }
-            
+
             // Prüfen, ob der Panzer bereits platziert wurde
             if panzer.isPlaced {
                 print("touchesEnded: Panzer ist bereits platziert, ignoriere Berührung")
                 return
             }
-            
+
             // Panzer platzieren
             let column = grassTileMap.tileColumnIndex(fromPosition: location)
             let row = grassTileMap.tileRowIndex(fromPosition: location)
             let tileCenter = grassTileMap.centerOfTile(atColumn: column, row: row)
             panzer.position = CGPoint(x: tileCenter.x, y: tileCenter.y)
-            
+
             panzer.physicsBody = SKPhysicsBody(rectangleOf: panzer.size, center: CGPoint(x: 0, y: panzer.size.height / 4))
             panzer.physicsBody?.isDynamic = true
             panzer.physicsBody?.categoryBitMask = CollisionCategory.panzer
             panzer.physicsBody?.collisionBitMask = CollisionCategory.grassTile
             panzer.physicsBody?.contactTestBitMask = CollisionCategory.grassTile
             panzer.physicsBody?.restitution = 0.0
-            
+
             panzer.isPlaced = true
-            
+
             print("touchesEnded: Panzer an Position \(panzer.position) platziert und Physik hinzugefügt")
-            
+
             // Nächsten Panzer anzeigen oder das Spiel starten, wenn dies der letzte Panzer war
             currentPanzerIndex += 1
             if currentPanzerIndex >= selectedPanzers.count {
@@ -784,6 +777,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
     }
+
     
     // Füge eine Liste von Feind-Panzern hinzu
     

@@ -16,10 +16,10 @@ struct MapSelectScreenView: View {
                 .ignoresSafeArea()
 
             GeometryReader { geometry in
-                VStack(spacing: 70) {
+                VStack() {
                     // Titel oben anzeigen
                     Text("Map Choice!")
-                        .font(.title)
+                        .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundColor(animateTitle ? .yellow : .white)
                         .scaleEffect(animateTitle ? 1.2 : 1.0)
@@ -30,14 +30,15 @@ struct MapSelectScreenView: View {
                         .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: animateTitle)
                         .padding(.top, geometry.safeAreaInsets.top + 30)
 
-                    ScrollView(.horizontal) {
-                        LazyHGrid(rows: [GridItem(.flexible())], spacing: 20) {
+                    ScrollView {
+                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
                             ForEach(availableMaps, id: \.self) { map in
                                 ZStack {
                                     if selectedMap == map {
                                         RoundedRectangle(cornerRadius: 10)
-                                            .stroke(Color.white, lineWidth: 10)
-                                            .frame(width: geometry.size.width / 3, height: geometry.size.height / 1)
+                                            .stroke(Color.yellow, lineWidth: 5)
+                                            .frame(width: geometry.size.width / 2.5 - 20, height: geometry.size.height / 4 - 20)
+                                            .shadow(color: .black.opacity(0.5), radius: 10, x: 0, y: 5)
                                     }
 
                                     Button(action: {
@@ -45,25 +46,27 @@ struct MapSelectScreenView: View {
                                     }) {
                                         ZStack {
                                             RoundedRectangle(cornerRadius: 10)
-                                                .fill(Color.black)
-                                                .frame(width: geometry.size.width / 3)
-                                               
+                                                .fill(Color.black.opacity(0.5))
+                                                .frame(width: geometry.size.width / 2.5 - 20, height: geometry.size.height / 4 - 20)
 
                                             Image(map)
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: geometry.size.width / 3.1, height: geometry.size.height / 3.1)
+                                                .frame(width: geometry.size.width / 2.6 - 20, height: geometry.size.height / 4.1 - 20)
                                                 .cornerRadius(10)
+                                                .padding(5) // Abstand zwischen Bild und Umrandung
                                         }
                                     }
                                     .buttonStyle(PlainButtonStyle())
                                 }
+                                .animation(.easeInOut, value: selectedMap)
                             }
                         }
                         .padding(.horizontal, 20)
                     }
 
                     if !selectedPanzers.isEmpty {
+                       
                         NavigationLink(destination: GameView(selectedPanzers: selectedPanzers, selectedMap: selectedMap)) {
                             Text("Get Start")
                                 .font(.title)
@@ -71,8 +74,10 @@ struct MapSelectScreenView: View {
                                 .background(Color.green)
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
+                                .shadow(color: .black.opacity(0.5), radius: 5, x: 0, y: 3)
                         }
-                        .padding(.top, 20)
+                        .padding(.bottom, 35)
+
                     }
                 }
                 .padding(.horizontal, 20)
