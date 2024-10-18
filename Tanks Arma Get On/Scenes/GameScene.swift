@@ -55,22 +55,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var hasFired = false // Variable zum Überprüfen, ob bereits geschossen wurde
 
+    // Sound actions
+      var moveSound: SKAction!
+      var shotSound: SKAction!
+      var bulletHitSound: SKAction!
+      var explosionSound: SKAction!
   
     
     func moveTankLeft() {
-        currentPanzer?.position.x -= 10
-        if currentPanzer?.xScale != -1 {
-            currentPanzer?.xScale = -1
+            currentPanzer?.position.x -= 10
+            if currentPanzer?.xScale != -1 {
+                currentPanzer?.xScale = -1
+            }
+            currentPanzer?.run(moveSound) // Play move sound
         }
-    }
-
-
-    func moveTankRight() {
-        currentPanzer?.position.x += 10
-        if currentPanzer?.xScale != 1 {
-            currentPanzer?.xScale = 1 // Dreht den Panzer nach rechts
+        
+        func moveTankRight() {
+            currentPanzer?.position.x += 10
+            if currentPanzer?.xScale != 1 {
+                currentPanzer?.xScale = 1
+            }
+            currentPanzer?.run(moveSound) // Play move sound
         }
-    }
+        
     
     
     func endTurnAndManageNextAction() {
@@ -314,9 +321,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         addPauseButton()
         
-        
-    }
-    
+        // Load sounds
+               moveSound = SKAction.playSoundFileNamed("TankMove.mp3", waitForCompletion: false)
+               shotSound = SKAction.playSoundFileNamed("shot.mp3", waitForCompletion: false)
+               bulletHitSound = SKAction.playSoundFileNamed("bulletHit.wav", waitForCompletion: false)
+               explosionSound = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
+           }
     
     
     func showWeaponMenu() {
@@ -523,6 +533,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         aimLine?.removeFromParent()
         aimLine = nil
 
+        bullet?.run(shotSound)// Play shot sound
+        
         // Trigger turn end after the shot, with a slight delay
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.endTurnAndManageNextAction()
@@ -864,6 +876,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 bullet?.removeFromParent()
             }
             
+            bullet?.run(bulletHitSound) // Play bullet hit sound
+            
             // Beende den Zug, nachdem die Kugel entweder getroffen hat oder verschwunden ist
             endTurnAndSwitchToNextPanzerOrEnemy()
         }
@@ -909,6 +923,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Entferne die Explosion nach einer kurzen Zeit (0.5 Sekunden)
         let removeAction = SKAction.sequence([SKAction.wait(forDuration: 0.5), SKAction.removeFromParent()])
         explosion.run(removeAction)
+        explosion.run(explosionSound) // Play explosion sound
+
     }
     
     // Pinch-Geste zum Zoomen
