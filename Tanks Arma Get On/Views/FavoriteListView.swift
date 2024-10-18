@@ -8,7 +8,8 @@ struct FavoritesListView: View {
     ) var favoriteJokes: FetchedResults<FavoriteJoke>
     
     @Environment(\.managedObjectContext) private var viewContext
-    
+    @Environment(\.presentationMode) var presentationMode
+
     var body: some View {
         VStack {
             if favoriteJokes.isEmpty {
@@ -49,20 +50,37 @@ struct FavoritesListView: View {
                     .onDelete(perform: deleteFavorites) // Swipe-to-Delete
                 }
                 .toolbar {
-                    EditButton() // Ermöglicht dem Benutzer, die Liste zu bearbeiten (zum Beispiel um mehrere Einträge zu löschen)
+                    EditButton() // Allows the user to edit the list
                 }
             }
         }
+        .background(
+            LinearGradient(gradient: Gradient(colors: [Color.blue, Color.black]),
+                           startPoint: .topLeading,
+                           endPoint: .bottomTrailing)
+            .edgesIgnoringSafeArea(.all)
+        )
+        .navigationBarBackButtonHidden(true) // Hide the default back button
+        .navigationBarItems(leading: Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+        }) {
+            HStack {
+                Image(systemName: "chevron.left")
+                    .foregroundColor(.blue)
+                Text("Back")
+                    .foregroundColor(.blue)
+            }
+        })
         .navigationTitle("Favorite Jokes")
     }
     
-    // Funktion zum Löschen von Favoriten
+    // Function to delete favorites
     private func deleteFavorites(offsets: IndexSet) {
         withAnimation {
-            offsets.map { favoriteJokes[$0] }.forEach(viewContext.delete) // Löschen der ausgewählten Favoriten
+            offsets.map { favoriteJokes[$0] }.forEach(viewContext.delete) // Delete selected favorites
             
             do {
-                try viewContext.save() // Änderungen in Core Data speichern
+                try viewContext.save() // Save changes to Core Data
             } catch {
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
@@ -70,4 +88,3 @@ struct FavoritesListView: View {
         }
     }
 }
-

@@ -6,25 +6,26 @@ struct MapSelectScreenView: View {
     let availableMaps = ["Map1", "Map2", "Map3", "Map4"]
     @State private var showInfoAlert = false
     @State private var animateTitle = false
-
+    @Environment(\.presentationMode) var presentationMode // For dismissing the view
+    
     var body: some View {
         ZStack {
-            // Hintergrundbild, das den Bildschirm füllt
+            // Background image that fills the screen
             Image("militaryBg")
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
 
             GeometryReader { geometry in
-                VStack() {
-                    // Titel oben anzeigen
+                VStack {
+                    // Display title at the top
                     Text("Map Choice!")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundColor(animateTitle ? .yellow : .white)
                         .scaleEffect(animateTitle ? 1.2 : 1.0)
                         .onAppear {
-                            // Animation nur für den Titel "Map Choice!"
+                            // Animation for the "Map Choice!" title
                             animateTitle = true
                         }
                         .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: animateTitle)
@@ -54,7 +55,7 @@ struct MapSelectScreenView: View {
                                                 .scaledToFit()
                                                 .frame(width: geometry.size.width / 2.6 - 20, height: geometry.size.height / 4.1 - 20)
                                                 .cornerRadius(10)
-                                                .padding(5) // Abstand zwischen Bild und Umrandung
+                                                .padding(5) // Padding between image and border
                                         }
                                     }
                                     .buttonStyle(PlainButtonStyle())
@@ -66,8 +67,8 @@ struct MapSelectScreenView: View {
                     }
 
                     if !selectedPanzers.isEmpty {
-                       
-                        NavigationLink(destination: GameView(selectedPanzers: selectedPanzers, selectedMap: selectedMap)) {
+                        NavigationLink(destination: GameView(selectedPanzers: selectedPanzers, selectedMap: selectedMap)
+                                        .navigationBarBackButtonHidden(true)) { // Hide the back button for GameView
                             Text("Get Start")
                                 .font(.title)
                                 .padding()
@@ -77,37 +78,51 @@ struct MapSelectScreenView: View {
                                 .shadow(color: .black.opacity(0.5), radius: 5, x: 0, y: 3)
                         }
                         .padding(.bottom, 35)
-
                     }
                 }
                 .padding(.horizontal, 20)
 
                 VStack {
                     HStack {
+                        // Custom back button
+                        Button(action: {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }) {
+                            HStack {
+                                Image(systemName: "chevron.left")
+                                    .foregroundColor(.blue)
+                                Text("Back")
+                                    .foregroundColor(.blue)
+                            }
+                        }
+                        .padding(.leading, 20)
+                        .padding(.top, 10)
                         Spacer()
+                        
                         Button(action: {
                             showInfoAlert.toggle()
                         }) {
-                            Image(systemName: "info.circle")
+                            Image("Info")
                                 .resizable()
-                                .frame(width: 30, height: 30)
+                                .frame(width: 60, height: 60)
                                 .foregroundColor(.white)
                                 .padding()
                         }
                     }
                     Spacer()
                 }
-                .padding(.top, 40)
-                .padding(.trailing, 20)
+                .padding(.top, 20) // Adjust this value to move the entire row higher
             }
         }
         .alert(isPresented: $showInfoAlert) {
             Alert(title: Text("Information"), message: Text("Select a map to start the game. Each map offers different challenges!"), dismissButton: .default(Text("OK")))
         }
+        .navigationBarBackButtonHidden(true) // Hide default back button
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
-// Vorschau der MapSelectScreenView
+// Preview for MapSelectScreenView
 struct MapSelectScreenView_Previews: PreviewProvider {
     static var previews: some View {
         MapSelectScreenView(selectedPanzers: ["Panzer1", "Panzer2"])

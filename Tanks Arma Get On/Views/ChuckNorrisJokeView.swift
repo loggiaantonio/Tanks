@@ -4,8 +4,9 @@ struct ChuckNorrisJokeView: View {
     @ObservedObject var viewModel = ChuckNorrisViewModel()
     @State private var animateText = false
     @State private var backgroundColor = Color.white
-    @Environment(\.managedObjectContext) private var viewContext // Core Data Kontext
-    @State private var showToast = false // Toast-Status
+    @Environment(\.managedObjectContext) private var viewContext // Core Data context
+    @Environment(\.presentationMode) var presentationMode // Presentation mode for dismissing the view
+    @State private var showToast = false // Toast status
     
     var body: some View {
         ZStack {
@@ -40,7 +41,7 @@ struct ChuckNorrisJokeView: View {
                         .padding()
                     }
                     
-                    // Witz, Favoriten-Stern und Neu laden Symbol
+                    // Joke, favorite star, and reload icon
                     VStack {
                         Text(joke.value)
                             .font(.title2)
@@ -55,24 +56,24 @@ struct ChuckNorrisJokeView: View {
                             }
                         
                         HStack {
-                            // Button zum Favorisieren des Witzes
+                            // Button to add the joke to favorites
                             Button(action: {
-                                addFavorite(joke: joke) // Favorisieren des Witzes
+                                addFavorite(joke: joke) // Add joke to favorites
                             }) {
-                                Image(systemName: "star.fill")
+                                Image("Star")
                                     .resizable()
-                                    .frame(width: 30, height: 30)
+                                    .frame(width: 60, height: 60)
                                     .foregroundColor(.yellow)
                             }
                             .padding()
                             
-                            // Button zum Neuladen des Witzes
+                            // Button to fetch a new joke
                             Button(action: {
-                                viewModel.fetchJoke() // Neuen Witz abrufen
+                                viewModel.fetchJoke() // Fetch new joke
                             }) {
-                                Image(systemName: "arrow.clockwise.circle.fill")
+                                Image("Reload")
                                     .resizable()
-                                    .frame(width: 30, height: 30)
+                                    .frame(width: 60, height: 60)
                                     .foregroundColor(.blue)
                             }
                             .padding()
@@ -90,7 +91,7 @@ struct ChuckNorrisJokeView: View {
                 }
             }
             
-            // Toast-Benachrichtigung
+            // Toast notification
             if showToast {
                 VStack {
                     Spacer()
@@ -111,9 +112,20 @@ struct ChuckNorrisJokeView: View {
         }
         .navigationTitle("Chuck Norris Jokes")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true) // Hide the default back button
+        .navigationBarItems(leading: Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+        }) {
+            HStack {
+                Image(systemName: "chevron.left")
+                    .foregroundColor(.blue)
+                Text("Back")
+                    .foregroundColor(.blue)
+            }
+        })
     }
     
-    // Funktion, um Witze zu favorisieren und in Core Data zu speichern
+    // Function to add jokes to favorites and save to Core Data
     private func addFavorite(joke: ChuckNorrisJoke) {
         let newFavorite = FavoriteJoke(context: viewContext)
         newFavorite.id = joke.id
@@ -122,18 +134,18 @@ struct ChuckNorrisJokeView: View {
         
         do {
             try viewContext.save()
-            showToastMessage() // Zeige Toast nach dem Speichern
+            showToastMessage() // Show toast after saving
         } catch {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
     
-    // Funktion zum Anzeigen der Toast-Nachricht
+    // Function to show toast message
     private func showToastMessage() {
         showToast = true
         
-        // Toast nach 2 Sekunden wieder ausblenden
+        // Hide toast after 2 seconds
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             withAnimation {
                 showToast = false

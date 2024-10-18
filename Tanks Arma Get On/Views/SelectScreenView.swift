@@ -4,7 +4,7 @@ struct SelectScreenView: View {
     @State private var selectedPanzers: [String] = [] // Liste der ausgewählten Panzer
     @State private var animateTitle = false // Animation für den Titel
     @State private var showInfoAlert = false // State für das Anzeigen des Info-Dialogs
-
+    
     let panzerOptions = [
         "tanks_tankGreen1", "tanks_tankGreen2", "tanks_tankGreen3", "tanks_tankGreen5",
         "tanks_tankDesert2", "tanks_tankDesert3", "tanks_tankDesert4", "tanks_tankDesert5"
@@ -48,10 +48,10 @@ struct SelectScreenView: View {
                                     ZStack {
                                         LinearGradient(gradient: Gradient(colors: [Color.gray, Color.black.opacity(0.7)]),
                                                        startPoint: .topLeading, endPoint: .bottomTrailing)
-                                            .frame(width: 70, height: 70)
-                                            .cornerRadius(10)
-                                            .scaleEffect(selectedPanzers.contains(panzer) ? 1.1 : 1.0)
-                                            .animation(.easeInOut(duration: 0.2), value: selectedPanzers.contains(panzer))
+                                        .frame(width: 70, height: 70)
+                                        .cornerRadius(10)
+                                        .scaleEffect(selectedPanzers.contains(panzer) ? 1.1 : 1.0)
+                                        .animation(.easeInOut(duration: 0.2), value: selectedPanzers.contains(panzer))
                                         
                                         Image(panzer)
                                             .resizable()
@@ -69,8 +69,8 @@ struct SelectScreenView: View {
                                 ZStack {
                                     LinearGradient(gradient: Gradient(colors: [Color.gray, Color.black.opacity(0.7)]),
                                                    startPoint: .topLeading, endPoint: .bottomTrailing)
-                                        .frame(width: 70, height: 70)
-                                        .cornerRadius(10)
+                                    .frame(width: 70, height: 70)
+                                    .cornerRadius(10)
                                     
                                     Image(systemName: "questionmark")
                                         .resizable()
@@ -97,51 +97,47 @@ struct SelectScreenView: View {
                     }
                 }
                 
-                // Chuck Norris Bild und Navigation oben links
                 VStack {
                     HStack {
-                        NavigationLink(destination: ChuckNorrisJokeView()) {
-                            Image("ChuckNorris")
-                                .resizable()
-                                .frame(width: 70, height: 60)
-                                .cornerRadius(10)
-                                .padding()
+                        VStack {
+                            NavigationLink(destination: ChuckNorrisJokeView()) {
+                                Image("ChuckNorris")
+                                    .resizable()
+                                    .frame(width: 90, height: 70)
+                                    .cornerRadius(10)
+                                    .padding()
+                            }
+                            
+                            NavigationLink(destination: FavoritesListView()) {
+                                Image("Star")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                    .foregroundColor(.yellow)
+                                    .padding(.bottom, 20)
+                            }
                         }
                         Spacer()
                     }
                     Spacer()
                 }
                 .padding(.top, 40)
-                .padding(.leading,-10)
-
+                .padding(.leading, -30)
+                
                 VStack {
                     HStack {
                         Spacer()
                         Button(action: {
                             showInfoAlert.toggle()
                         }) {
-                            Image(systemName: "info.circle")
+                            Image("Info")
                                 .resizable()
-                                .frame(width: 30, height: 30)
+                                .frame(width: 60, height: 60)
                                 .foregroundColor(.white)
                                 .padding()
                         }
                     }
                     Spacer()
-                    VStack {
-                        Spacer()
-                        HStack {
-                            Spacer()
-                            NavigationLink(destination: FavoritesListView()) {
-                                Image(systemName: "star.fill")
-                                    .resizable()
-                                    .frame(width: 50, height: 50)
-                                    .foregroundColor(.yellow)
-                                    .padding()
-                            }
-                            .padding([.bottom, .trailing], -0)
-                        }
-                    }
+                    
                 }
                 .padding(.top, 40)
                 .padding(.trailing, 0)
@@ -153,7 +149,7 @@ struct SelectScreenView: View {
             }
         }
     }
-
+    
     func togglePanzerSelection(_ panzer: String) {
         withAnimation(.easeInOut) {
             if selectedPanzers.contains(panzer) {
@@ -163,7 +159,7 @@ struct SelectScreenView: View {
             }
         }
     }
-
+    
     func selectRandomPanzers() {
         withAnimation(.easeInOut) {
             selectedPanzers.removeAll()

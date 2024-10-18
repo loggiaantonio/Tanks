@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		23025B382CB917EF007AD58C /* PauseMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23025B372CB917E9007AD58C /* PauseMenuView.swift */; };
-		231534AE2C97622800313540 /* startScreen.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 231534AD2C97622800313540 /* startScreen.mp3 */; };
 		231534B02C9765AA00313540 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 231534AF2C9765AA00313540 /* View.xib */; };
 		233A666E2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A666D2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift */; };
 		233A66702C860420008FE60C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A666F2C860420008FE60C /* ContentView.swift */; };
@@ -23,6 +22,12 @@
 		2379A65B2CC0465C00B7D82A /* ChuckNorrisJokeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379A65A2CC0464F00B7D82A /* ChuckNorrisJokeView.swift */; };
 		2379A6602CC04C8500B7D82A /* FavoriteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379A65F2CC04C6E00B7D82A /* FavoriteListView.swift */; };
 		2379A6652CC04E4D00B7D82A /* FavoriteDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2379A6632CC04E4D00B7D82A /* FavoriteDataModel.xcdatamodeld */; };
+		2379A66D2CC294D800B7D82A /* bulletHit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2379A6672CC294D800B7D82A /* bulletHit.wav */; };
+		2379A66E2CC294D800B7D82A /* startScreen.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2379A66B2CC294D800B7D82A /* startScreen.mp3 */; };
+		2379A66F2CC294D800B7D82A /* explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2379A6692CC294D800B7D82A /* explosion.wav */; };
+		2379A6702CC294D800B7D82A /* emptyWeapon.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2379A6682CC294D800B7D82A /* emptyWeapon.wav */; };
+		2379A6722CC295B300B7D82A /* tankMove.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2379A6712CC295B300B7D82A /* tankMove.mp3 */; };
+		2379A6742CC295FB00B7D82A /* shot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2379A6732CC295FB00B7D82A /* shot.mp3 */; };
 		23B6C4EF2CAAD1CF00F2D8DB /* Rbsl.gif in Resources */ = {isa = PBXBuildFile; fileRef = 23B6C4EE2CAAD1CF00F2D8DB /* Rbsl.gif */; };
 		23C971F22CA2D7400043CBB2 /* MapSelectScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C971F12CA2D7400043CBB2 /* MapSelectScreenView.swift */; };
 		23C971F42CA2DBDD0043CBB2 /* MapSpriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C971F32CA2DBDD0043CBB2 /* MapSpriteView.swift */; };
@@ -41,7 +46,6 @@
 
 /* Begin PBXFileReference section */
 		23025B372CB917E9007AD58C /* PauseMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseMenuView.swift; sourceTree = "<group>"; };
-		231534AD2C97622800313540 /* startScreen.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = startScreen.mp3; path = ../../../Desktop/startScreen.mp3; sourceTree = "<group>"; };
 		231534AF2C9765AA00313540 /* View.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		233A666A2C860420008FE60C /* Tanks Arma Get On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tanks Arma Get On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		233A666D2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tanks_Arma_Get_OnApp.swift; sourceTree = "<group>"; };
@@ -57,15 +61,19 @@
 		2379A65A2CC0464F00B7D82A /* ChuckNorrisJokeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChuckNorrisJokeView.swift; sourceTree = "<group>"; };
 		2379A65F2CC04C6E00B7D82A /* FavoriteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListView.swift; sourceTree = "<group>"; };
 		2379A6642CC04E4D00B7D82A /* FavoriteDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FavoriteDataModel.xcdatamodel; sourceTree = "<group>"; };
+		2379A6672CC294D800B7D82A /* bulletHit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bulletHit.wav; sourceTree = "<group>"; };
+		2379A6682CC294D800B7D82A /* emptyWeapon.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = emptyWeapon.wav; sourceTree = "<group>"; };
+		2379A6692CC294D800B7D82A /* explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion.wav; sourceTree = "<group>"; };
+		2379A66B2CC294D800B7D82A /* startScreen.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = startScreen.mp3; sourceTree = "<group>"; };
+		2379A6712CC295B300B7D82A /* tankMove.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tankMove.mp3; sourceTree = "<group>"; };
+		2379A6732CC295FB00B7D82A /* shot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shot.mp3; sourceTree = "<group>"; };
 		23B6C4EE2CAAD1CF00F2D8DB /* Rbsl.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Rbsl.gif; sourceTree = "<group>"; };
 		23C971F12CA2D7400043CBB2 /* MapSelectScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSelectScreenView.swift; sourceTree = "<group>"; };
 		23C971F32CA2DBDD0043CBB2 /* MapSpriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSpriteView.swift; sourceTree = "<group>"; };
 		23C971FA2CA55BE60043CBB2 /* SpriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteView.swift; sourceTree = "<group>"; };
 		23C971FC2CA5A5FA0043CBB2 /* GameSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneView.swift; sourceTree = "<group>"; };
 		23C972002CA5B9250043CBB2 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		23C972042CA6D5270043CBB2 /* startScreen.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = startScreen.mp3; sourceTree = "<group>"; };
 		23C972072CA6D59A0043CBB2 /* Rbsl.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Rbsl.gif; sourceTree = "<group>"; };
-		23C972082CA6E71A0043CBB2 /* startScreen.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = startScreen.mp3; path = ../../../../Desktop/startScreen.mp3; sourceTree = "<group>"; };
 		23F01B5C2CB022CF0003F8DC /* Weapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weapon.swift; sourceTree = "<group>"; };
 		23F01B5E2CB060E70003F8DC /* WeaponMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponMenuView.swift; sourceTree = "<group>"; };
 		23F6D41E2C982D78006087AF /* BattleScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleScene.swift; sourceTree = "<group>"; };
@@ -91,6 +99,12 @@
 			isa = PBXGroup;
 			children = (
 				23B6C4EE2CAAD1CF00F2D8DB /* Rbsl.gif */,
+				2379A6672CC294D800B7D82A /* bulletHit.wav */,
+				2379A6682CC294D800B7D82A /* emptyWeapon.wav */,
+				2379A6692CC294D800B7D82A /* explosion.wav */,
+				2379A6712CC295B300B7D82A /* tankMove.mp3 */,
+				2379A6732CC295FB00B7D82A /* shot.mp3 */,
+				2379A66B2CC294D800B7D82A /* startScreen.mp3 */,
 				233A666C2C860420008FE60C /* Tanks Arma Get On */,
 				233A666B2C860420008FE60C /* Products */,
 			);
@@ -111,8 +125,6 @@
 				23C972062CA6D5920043CBB2 /* Gif´s */,
 				23F6D4212C982ECD006087AF /* Assets.xcassets */,
 				23C972052CA6D54F0043CBB2 /* Tiles */,
-				231534AD2C97622800313540 /* startScreen.mp3 */,
-				23C972032CA6D51C0043CBB2 /* Sound */,
 				23C972022CA6D4CB0043CBB2 /* Scenes */,
 				23F6D4252C9C5496006087AF /* Viewmodel */,
 				23F6D4242C9C5485006087AF /* Views */,
@@ -160,15 +172,6 @@
 				233A667B2C86046C008FE60C /* GameScene.swift */,
 			);
 			path = Scenes;
-			sourceTree = "<group>";
-		};
-		23C972032CA6D51C0043CBB2 /* Sound */ = {
-			isa = PBXGroup;
-			children = (
-				23C972082CA6E71A0043CBB2 /* startScreen.mp3 */,
-				23C972042CA6D5270043CBB2 /* startScreen.mp3 */,
-			);
-			path = Sound;
 			sourceTree = "<group>";
 		};
 		23C972052CA6D54F0043CBB2 /* Tiles */ = {
@@ -287,13 +290,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				231534B02C9765AA00313540 /* View.xib in Resources */,
+				2379A66D2CC294D800B7D82A /* bulletHit.wav in Resources */,
+				2379A66E2CC294D800B7D82A /* startScreen.mp3 in Resources */,
+				2379A66F2CC294D800B7D82A /* explosion.wav in Resources */,
+				2379A6702CC294D800B7D82A /* emptyWeapon.wav in Resources */,
+				2379A6742CC295FB00B7D82A /* shot.mp3 in Resources */,
 				233A66752C860421008FE60C /* Preview Assets.xcassets in Resources */,
+				2379A6722CC295B300B7D82A /* tankMove.mp3 in Resources */,
 				233A66722C860421008FE60C /* Assets.xcassets in Resources */,
 				23F6D4222C982ECD006087AF /* TileSet.sks in Resources */,
 				23C972012CA5B9250043CBB2 /* GameScene.sks in Resources */,
 				23B6C4EF2CAAD1CF00F2D8DB /* Rbsl.gif in Resources */,
 				23F6D4232C982ECD006087AF /* Assets.xcassets in Resources */,
-				231534AE2C97622800313540 /* startScreen.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
