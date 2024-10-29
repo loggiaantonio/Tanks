@@ -11,13 +11,23 @@ import SpriteKit // Importiere SpriteKit für die GameScene und SKView
 
 struct SpriteView: UIViewRepresentable {
     let mapName: String
-    let selectedPanzers: [String]
+    let selectedPanzerNames: [String] // Liste der Panzer-Namen
 
     func makeUIView(context: Context) -> SKView {
         let skView = SKView()
 
         // Lade die Szene aus der .sks-Datei
         if let scene = GameScene(fileNamed: "GameScene") {
+            
+            // Erstelle Panzer-Objekte aus den Namen
+            var selectedPanzers: [Panzer] = []
+            for panzerName in selectedPanzerNames {
+                let panzer = Panzer(imageNamed: panzerName, isEnemy: false) // Erstelle ein Panzer-Objekt
+                panzer.name = panzerName // Setze den Namen des Panzers
+                selectedPanzers.append(panzer) // Füge den Panzer zur Liste hinzu
+            }
+            
+            // Weise die Panzer-Objekte der Szene zu
             scene.selectedPanzers = selectedPanzers
             scene.scaleMode = .aspectFill
             skView.presentScene(scene)

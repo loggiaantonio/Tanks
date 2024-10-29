@@ -10,5 +10,6 @@ struct Weapon: Equatable {
     let image: String // Dateiname des Bildes
     let damage: Int
     var ammoCount: Int
+
     
 }

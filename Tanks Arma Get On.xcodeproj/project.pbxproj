@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		23025B382CB917EF007AD58C /* PauseMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23025B372CB917E9007AD58C /* PauseMenuView.swift */; };
 		231534B02C9765AA00313540 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 231534AF2C9765AA00313540 /* View.xib */; };
+		231AEE7F2CD1223E00BEC91E /* Panzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231AEE7E2CD1222B00BEC91E /* Panzer.swift */; };
+		231AEE812CD1227200BEC91E /* EnemyAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231AEE802CD1225F00BEC91E /* EnemyAI.swift */; };
+		231AEE832CD1229200BEC91E /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231AEE822CD1228E00BEC91E /* GameManager.swift */; };
+		231AEE852CD17FE900BEC91E /* Click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 231AEE842CD17FE900BEC91E /* Click.mp3 */; };
 		233A666E2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A666D2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift */; };
 		233A66702C860420008FE60C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233A666F2C860420008FE60C /* ContentView.swift */; };
 		233A66722C860421008FE60C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 233A66712C860421008FE60C /* Assets.xcassets */; };
@@ -37,7 +41,6 @@
 		23C972012CA5B9250043CBB2 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 23C972002CA5B9250043CBB2 /* GameScene.sks */; };
 		23F01B5D2CB022E60003F8DC /* Weapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F01B5C2CB022CF0003F8DC /* Weapon.swift */; };
 		23F01B5F2CB060F00003F8DC /* WeaponMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F01B5E2CB060E70003F8DC /* WeaponMenuView.swift */; };
-		23F6D41F2C982D78006087AF /* BattleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F6D41E2C982D78006087AF /* BattleScene.swift */; };
 		23F6D4222C982ECD006087AF /* TileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 23F6D4202C982ECD006087AF /* TileSet.sks */; };
 		23F6D4232C982ECD006087AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23F6D4212C982ECD006087AF /* Assets.xcassets */; };
 		23F6D4272C9C54E5006087AF /* SelectScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F6D4262C9C54E5006087AF /* SelectScreenView.swift */; };
@@ -47,6 +50,10 @@
 /* Begin PBXFileReference section */
 		23025B372CB917E9007AD58C /* PauseMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseMenuView.swift; sourceTree = "<group>"; };
 		231534AF2C9765AA00313540 /* View.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
+		231AEE7E2CD1222B00BEC91E /* Panzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Panzer.swift; sourceTree = "<group>"; };
+		231AEE802CD1225F00BEC91E /* EnemyAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAI.swift; sourceTree = "<group>"; };
+		231AEE822CD1228E00BEC91E /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+		231AEE842CD17FE900BEC91E /* Click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Click.mp3; sourceTree = "<group>"; };
 		233A666A2C860420008FE60C /* Tanks Arma Get On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tanks Arma Get On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		233A666D2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tanks_Arma_Get_OnApp.swift; sourceTree = "<group>"; };
 		233A666F2C860420008FE60C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -76,7 +83,6 @@
 		23C972072CA6D59A0043CBB2 /* Rbsl.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Rbsl.gif; sourceTree = "<group>"; };
 		23F01B5C2CB022CF0003F8DC /* Weapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weapon.swift; sourceTree = "<group>"; };
 		23F01B5E2CB060E70003F8DC /* WeaponMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponMenuView.swift; sourceTree = "<group>"; };
-		23F6D41E2C982D78006087AF /* BattleScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleScene.swift; sourceTree = "<group>"; };
 		23F6D4202C982ECD006087AF /* TileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TileSet.sks; sourceTree = "<group>"; };
 		23F6D4212C982ECD006087AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Tiles/Assets.xcassets; sourceTree = "<group>"; };
 		23F6D4262C9C54E5006087AF /* SelectScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectScreenView.swift; sourceTree = "<group>"; };
@@ -95,11 +101,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		231AEE7D2CD121CB00BEC91E /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				231AEE822CD1228E00BEC91E /* GameManager.swift */,
+				231AEE802CD1225F00BEC91E /* EnemyAI.swift */,
+				231AEE7E2CD1222B00BEC91E /* Panzer.swift */,
+			);
+			path = Class;
+			sourceTree = "<group>";
+		};
 		233A66612C860420008FE60C = {
 			isa = PBXGroup;
 			children = (
 				23B6C4EE2CAAD1CF00F2D8DB /* Rbsl.gif */,
 				2379A6672CC294D800B7D82A /* bulletHit.wav */,
+				231AEE842CD17FE900BEC91E /* Click.mp3 */,
 				2379A6682CC294D800B7D82A /* emptyWeapon.wav */,
 				2379A6692CC294D800B7D82A /* explosion.wav */,
 				2379A6712CC295B300B7D82A /* tankMove.mp3 */,
@@ -121,6 +138,7 @@
 		233A666C2C860420008FE60C /* Tanks Arma Get On */ = {
 			isa = PBXGroup;
 			children = (
+				231AEE7D2CD121CB00BEC91E /* Class */,
 				23F01B5B2CB022BD0003F8DC /* Weapon */,
 				23C972062CA6D5920043CBB2 /* Gif´s */,
 				23F6D4212C982ECD006087AF /* Assets.xcassets */,
@@ -168,7 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				23C972002CA5B9250043CBB2 /* GameScene.sks */,
-				23F6D41E2C982D78006087AF /* BattleScene.swift */,
 				233A667B2C86046C008FE60C /* GameScene.swift */,
 			);
 			path = Scenes;
@@ -292,6 +309,7 @@
 				231534B02C9765AA00313540 /* View.xib in Resources */,
 				2379A66D2CC294D800B7D82A /* bulletHit.wav in Resources */,
 				2379A66E2CC294D800B7D82A /* startScreen.mp3 in Resources */,
+				231AEE852CD17FE900BEC91E /* Click.mp3 in Resources */,
 				2379A66F2CC294D800B7D82A /* explosion.wav in Resources */,
 				2379A6702CC294D800B7D82A /* emptyWeapon.wav in Resources */,
 				2379A6742CC295FB00B7D82A /* shot.mp3 in Resources */,
@@ -313,15 +331,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				2363A3EA2C97400C00A95EDD /* TanksArmaDataModel.xcdatamodeld in Sources */,
+				231AEE832CD1229200BEC91E /* GameManager.swift in Sources */,
 				23C971FD2CA5A5FA0043CBB2 /* GameSceneView.swift in Sources */,
 				23C971F22CA2D7400043CBB2 /* MapSelectScreenView.swift in Sources */,
 				23F6D4272C9C54E5006087AF /* SelectScreenView.swift in Sources */,
-				23F6D41F2C982D78006087AF /* BattleScene.swift in Sources */,
 				23025B382CB917EF007AD58C /* PauseMenuView.swift in Sources */,
 				233A667C2C86046C008FE60C /* GameScene.swift in Sources */,
 				233A66702C860420008FE60C /* ContentView.swift in Sources */,
 				2363A3EE2C97445100A95EDD /* StartView.swift in Sources */,
 				233A666E2C860420008FE60C /* Tanks_Arma_Get_OnApp.swift in Sources */,
+				231AEE812CD1227200BEC91E /* EnemyAI.swift in Sources */,
 				2379A65B2CC0465C00B7D82A /* ChuckNorrisJokeView.swift in Sources */,
 				23C971F42CA2DBDD0043CBB2 /* MapSpriteView.swift in Sources */,
 				23C971FB2CA55BE60043CBB2 /* SpriteView.swift in Sources */,
@@ -329,6 +348,7 @@
 				2379A6652CC04E4D00B7D82A /* FavoriteDataModel.xcdatamodeld in Sources */,
 				23F01B5D2CB022E60003F8DC /* Weapon.swift in Sources */,
 				2379A6572CC0444000B7D82A /* ChuckNorritsViewModel.swift in Sources */,
+				231AEE7F2CD1223E00BEC91E /* Panzer.swift in Sources */,
 				2379A6592CC0446C00B7D82A /* ChuckNorisJoke.swift in Sources */,
 				2379A6602CC04C8500B7D82A /* FavoriteListView.swift in Sources */,
 				2363A3EC2C97404A00A95EDD /* PersistenceController.swift in Sources */,

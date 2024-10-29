@@ -1,9 +1,11 @@
 import SwiftUI
+import AVFoundation
 
 struct SelectScreenView: View {
-    @State private var selectedPanzers: [String] = [] // Liste der ausgewählten Panzer
-    @State private var animateTitle = false // Animation für den Titel
-    @State private var showInfoAlert = false // State für das Anzeigen des Info-Dialogs
+    @State private var selectedPanzers: [String] = []
+    @State private var animateTitle = false
+    @State private var showInfoAlert = false
+    @State private var audioPlayer: AVAudioPlayer? // AudioPlayer als State-Variable speichern
     
     let panzerOptions = [
         "tanks_tankGreen1", "tanks_tankGreen2", "tanks_tankGreen3", "tanks_tankGreen5",
@@ -17,7 +19,7 @@ struct SelectScreenView: View {
     ]
     
     var body: some View {
-        NavigationView{
+        NavigationView {
             ZStack {
                 Image("militaryBg")
                     .resizable()
@@ -44,14 +46,15 @@ struct SelectScreenView: View {
                             ForEach(panzerOptions, id: \.self) { panzer in
                                 Button(action: {
                                     togglePanzerSelection(panzer)
+                                    playClickSound() // Sound abspielen
                                 }) {
                                     ZStack {
                                         LinearGradient(gradient: Gradient(colors: [Color.gray, Color.black.opacity(0.7)]),
                                                        startPoint: .topLeading, endPoint: .bottomTrailing)
-                                        .frame(width: 70, height: 70)
-                                        .cornerRadius(10)
-                                        .scaleEffect(selectedPanzers.contains(panzer) ? 1.1 : 1.0)
-                                        .animation(.easeInOut(duration: 0.2), value: selectedPanzers.contains(panzer))
+                                            .frame(width: 70, height: 70)
+                                            .cornerRadius(10)
+                                            .scaleEffect(selectedPanzers.contains(panzer) ? 1.1 : 1.0)
+                                            .animation(.easeInOut(duration: 0.2), value: selectedPanzers.contains(panzer))
                                         
                                         Image(panzer)
                                             .resizable()
@@ -65,12 +68,13 @@ struct SelectScreenView: View {
                             
                             Button(action: {
                                 selectRandomPanzers()
+                                playClickSound() // Sound abspielen
                             }) {
                                 ZStack {
                                     LinearGradient(gradient: Gradient(colors: [Color.gray, Color.black.opacity(0.7)]),
                                                    startPoint: .topLeading, endPoint: .bottomTrailing)
-                                    .frame(width: 70, height: 70)
-                                    .cornerRadius(10)
+                                        .frame(width: 70, height: 70)
+                                        .cornerRadius(10)
                                     
                                     Image(systemName: "questionmark")
                                         .resizable()
@@ -92,6 +96,9 @@ struct SelectScreenView: View {
                                     .cornerRadius(10)
                                     .frame(maxWidth: 200)
                             }
+                            .simultaneousGesture(TapGesture().onEnded {
+                                playClickSound() // Sound abspielen
+                            })
                             .padding(.bottom, 40)
                         }
                     }
@@ -107,6 +114,9 @@ struct SelectScreenView: View {
                                     .cornerRadius(10)
                                     .padding()
                             }
+                            .simultaneousGesture(TapGesture().onEnded {
+                                playClickSound() // Sound abspielen
+                            })
                             
                             NavigationLink(destination: FavoritesListView()) {
                                 Image("Star")
@@ -115,6 +125,9 @@ struct SelectScreenView: View {
                                     .foregroundColor(.yellow)
                                     .padding(.bottom, 20)
                             }
+                            .simultaneousGesture(TapGesture().onEnded {
+                                playClickSound() // Sound abspielen
+                            })
                         }
                         Spacer()
                     }
@@ -128,6 +141,7 @@ struct SelectScreenView: View {
                         Spacer()
                         Button(action: {
                             showInfoAlert.toggle()
+                            playClickSound() // Sound abspielen
                         }) {
                             Image("Info")
                                 .resizable()
@@ -165,6 +179,21 @@ struct SelectScreenView: View {
             selectedPanzers.removeAll()
             let shuffledPanzers = panzerOptions.shuffled()
             selectedPanzers = Array(shuffledPanzers.prefix(4))
+        }
+    }
+    
+    func playClickSound() {
+        guard let url = Bundle.main.url(forResource: "Click", withExtension: "mp3") else {
+            print("Error: Sound file not found.")
+            return
+        }
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer?.volume = 0.2 // Lautstärke auf 20% gesetzt
+            audioPlayer?.play()
+        } catch {
+            print("Error: Could not play sound file.")
         }
     }
 }

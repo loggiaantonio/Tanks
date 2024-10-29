@@ -1,4 +1,5 @@
 import SwiftUI
+import AVFoundation
 
 struct MapSelectScreenView: View {
     let selectedPanzers: [String]
@@ -6,6 +7,7 @@ struct MapSelectScreenView: View {
     let availableMaps = ["Map1", "Map2", "Map3", "Map4"]
     @State private var showInfoAlert = false
     @State private var animateTitle = false
+    @State private var audioPlayer: AVAudioPlayer? // AudioPlayer als State-Variable speichern
     @Environment(\.presentationMode) var presentationMode // For dismissing the view
     
     var body: some View {
@@ -44,6 +46,7 @@ struct MapSelectScreenView: View {
 
                                     Button(action: {
                                         selectedMap = map
+                                        playClickSound() // Sound abspielen
                                     }) {
                                         ZStack {
                                             RoundedRectangle(cornerRadius: 10)
@@ -77,6 +80,9 @@ struct MapSelectScreenView: View {
                                 .cornerRadius(10)
                                 .shadow(color: .black.opacity(0.5), radius: 5, x: 0, y: 3)
                         }
+                        .simultaneousGesture(TapGesture().onEnded {
+                            playClickSound() // Sound abspielen
+                        })
                         .padding(.bottom, 35)
                     }
                 }
@@ -87,6 +93,7 @@ struct MapSelectScreenView: View {
                         // Custom back button
                         Button(action: {
                             self.presentationMode.wrappedValue.dismiss()
+                            playClickSound() // Sound abspielen
                         }) {
                             HStack {
                                 Image(systemName: "chevron.left")
@@ -101,6 +108,7 @@ struct MapSelectScreenView: View {
                         
                         Button(action: {
                             showInfoAlert.toggle()
+                            playClickSound() // Sound abspielen
                         }) {
                             Image("Info")
                                 .resizable()
@@ -119,6 +127,22 @@ struct MapSelectScreenView: View {
         }
         .navigationBarBackButtonHidden(true) // Hide default back button
         .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    func playClickSound() {
+        guard let url = Bundle.main.url(forResource: "Click", withExtension: "mp3") else {
+            print("Error: Sound file not found.")
+            return
+        }
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer?.volume = 0.2 // Lautstärke auf 20% gesetzt
+
+            audioPlayer?.play()
+        } catch {
+            print("Error: Could not play sound file.")
+        }
     }
 }
 
