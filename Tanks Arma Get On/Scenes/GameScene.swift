@@ -640,7 +640,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             print("showNextPanzer: Zeige Panzer \(panzer.name ?? "") an") // Verwende den Namen des Panzer-Objekts, falls vorhanden
             
             panzer.size = CGSize(width: 70, height: 70) // Panzerskalierung auf eine kleinere Größe
-            panzer.position = CGPoint(x: 0, y: 0) // Startposition in der Mitte
+            panzer.position = CGPoint(x: -50, y: -50) // Startposition in der Mitte
             panzer.zPosition = 0 // Über der Map
             
             // Der Panzer-Name ist bereits gesetzt, daher keine erneute Zuweisung nötig
