@@ -69,7 +69,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var enemyAIControllers: [EnemyAI] = [] // Liste der Gegner-KI-Instanzen
     
     var isPlacingPhase = true // Platzierungsphase aktivieren
-
     
     // Sound actions
     var moveSound: SKAction!
@@ -83,6 +82,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func moveTankLeft() {
+        isAiming = false // Beende das Zielen beim Bewegen
+        aimLine?.isHidden = true // Verstecke die Ziellinie
         currentPanzer?.position.x -= 2
         if currentPanzer?.xScale != -1 {
             currentPanzer?.xScale = -1
@@ -91,6 +92,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func moveTankRight() {
+        isAiming = false // Beende das Zielen beim Bewegen
+        aimLine?.isHidden = true // Verstecke die Ziellinie
         currentPanzer?.position.x += 2
         if currentPanzer?.xScale != 1 {
             currentPanzer?.xScale = 1
@@ -184,7 +187,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     func updateAimLine() {
-        // Wenn noch keine Ziel-Linie existiert, erstellen wir sie
+        guard isAiming, let currentPanzer = currentPanzer else {
+            aimLine?.isHidden = true // Verstecke die Ziellinie, wenn nicht gezielt wird
+            return
+        }
+
+        aimLine?.isHidden = false // Zeige die Ziellinie an, wenn gezielt wird
+
         if aimLine == nil {
             aimLine = SKShapeNode()
             aimLine?.strokeColor = .red
@@ -192,22 +201,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             aimLine?.zPosition = 2
             addChild(aimLine!)
         }
-        
-        // Berechne die Länge basierend auf der Powerbar (maxPower)
+
+        // Berechne die Länge der Ziellinie basierend auf der Powerbar
         let powerFactor = powerBar.size.height / 100.0
         let aimLength = maxPower * powerFactor
-        
-        // Berechne das Ende des Zielstrahls basierend auf dem Winkel
-        let dx = aimLength * cos(aimAngle)
-        let dy = aimLength * sin(aimAngle)
-        
+
+        // Passe den Zielwinkel an die Blickrichtung des Panzers an
+        let adjustedAngle = currentPanzer.xScale == -1 ? .pi - aimAngle : aimAngle
+
+        // Berechne das Ende des Zielstrahls basierend auf dem angepassten Winkel
+        let dx = aimLength * cos(adjustedAngle)
+        let dy = aimLength * sin(adjustedAngle)
+
         // Startpunkt des Strahls (Position des aktuellen Panzers)
-        guard let currentPanzer = currentPanzer else { return }
         let startPoint = CGPoint(x: currentPanzer.position.x, y: currentPanzer.position.y + currentPanzer.size.height / 2)
-        
+
         // Endpunkt des Strahls
         let endPoint = CGPoint(x: startPoint.x + dx, y: startPoint.y + dy)
-        
+
         // Aktualisiere den Pfad des Strahls
         let path = CGMutablePath()
         path.move(to: startPoint)
@@ -215,19 +226,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         aimLine?.path = path
     }
     
+    
     // Funktion zum Anpassen des Zielwinkels (durch Hoch- und Runter-Tasten)
     func aimTankUp() {
+        isAiming = true // Aktiviert das Zielen
         aimAngle += 0.1 // Erhöhe den Winkel
-        if aimAngle > .pi / 2 { aimAngle = .pi / 2 } // Maximal 90 Grad nach oben
+
+        // Begrenze den Winkel auf maximal 140 Grad (etwa 2.44 Rad)
+        if aimAngle > 2.44 { aimAngle = 2.44 }
+        
+        print("aimTankUp: Neuer aimAngle ist \(aimAngle)")
         updateAimLine()
     }
-    
+
     func aimTankDown() {
+        isAiming = true // Aktiviert das Zielen
         aimAngle -= 0.1 // Verringere den Winkel
-        if aimAngle < -.pi / 2 { aimAngle = -.pi / 2 } // Maximal 90 Grad nach unten
+
+        // Begrenze den Winkel auf minimal -140 Grad (etwa -2.44 Rad)
+        if aimAngle < -2.44 { aimAngle = -2.44 }
+        
+        print("aimTankDown: Neuer aimAngle ist \(aimAngle)")
         updateAimLine()
     }
-    
     
     
     override func didMove(to view: SKView) {
@@ -428,6 +449,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func shoot() {
+        isAiming = false // Beende das Zielen nach dem Schießen
+        aimLine?.isHidden = true // Verstecke die Ziellinie
         // Überprüfen, ob bereits geschossen wurde, um Mehrfachauslösung zu verhindern
         guard hasFired == false else {
             print("Es wurde bereits geschossen! Warte auf die nächste Runde.")
@@ -445,8 +468,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Panzer feuert die ausgewählte Waffe ab
         print("Schießen mit Waffe: \(currentWeapon.name)")
-        currentPanzer.shootWeapon(named: currentWeapon.name)
-        
+        currentPanzer.shootWeapon(named: currentWeapon.name, angle: aimAngle)
+
         // Schuss abgeschlossen, Zugwechsel einleiten
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // 1 Sekunde Verzögerung für die Animation
             self.endTurnAndManageNextAction()
@@ -516,48 +539,48 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Methode: Das Spiel beginnen, nachdem alle Panzer platziert wurden
     func startGame() {
-            gameStarted = true
-            isPlacingPhase = false // Platzierungsphase beenden
-            print("Das Spiel hat begonnen")
-            
+        gameStarted = true
+        isPlacingPhase = false // Platzierungsphase beenden
+        print("Das Spiel hat begonnen")
+        
     }
     
     // Methode zum Respawnen eines zerstörten Panzers in der Platzierungsphase
-      func respawnPanzer(_ panzer: Panzer) {
-          guard isPlacingPhase else { return }
-          
-          print("Respawn für \(panzer.name ?? "Panzer") während der Platzierungsphase")
-          
-          // Zufällige Position innerhalb der Spielgrenzen finden
-          var placed = false
-          var attempts = 0
-          while !placed && attempts < 10 {
-              attempts += 1
-              let randomX = CGFloat.random(in: -self.size.width/2...self.size.width/2)
-              let randomY = CGFloat.random(in: -self.size.height/2...self.size.height/2)
-              let randomPosition = CGPoint(x: randomX, y: randomY)
-
-              if let grassTileMap = grassTileMap {
-                  let column = grassTileMap.tileColumnIndex(fromPosition: randomPosition)
-                  let row = grassTileMap.tileRowIndex(fromPosition: randomPosition)
-                  
-                  if let tileDefinition = grassTileMap.tileDefinition(atColumn: column, row: row),
-                     let isSolid = tileDefinition.userData?.value(forKey: "solid") as? Bool, isSolid {
-                      panzer.position = grassTileMap.centerOfTile(atColumn: column, row: row)
-                      addChild(panzer)
-                      placed = true
-                      print("\(panzer.name ?? "Panzer") wurde neu platziert bei \(panzer.position)")
-                  }
-              }
-          }
-          
-          if !placed {
-              print("Konnte keine passende Position für \(panzer.name ?? "Panzer") finden")
-          }
-      }
-  
-
-
+    func respawnPanzer(_ panzer: Panzer) {
+        guard isPlacingPhase else { return }
+        
+        print("Respawn für \(panzer.name ?? "Panzer") während der Platzierungsphase")
+        
+        // Zufällige Position innerhalb der Spielgrenzen finden
+        var placed = false
+        var attempts = 0
+        while !placed && attempts < 10 {
+            attempts += 1
+            let randomX = CGFloat.random(in: -self.size.width/2...self.size.width/2)
+            let randomY = CGFloat.random(in: -self.size.height/2...self.size.height/2)
+            let randomPosition = CGPoint(x: randomX, y: randomY)
+            
+            if let grassTileMap = grassTileMap {
+                let column = grassTileMap.tileColumnIndex(fromPosition: randomPosition)
+                let row = grassTileMap.tileRowIndex(fromPosition: randomPosition)
+                
+                if let tileDefinition = grassTileMap.tileDefinition(atColumn: column, row: row),
+                   let isSolid = tileDefinition.userData?.value(forKey: "solid") as? Bool, isSolid {
+                    panzer.position = grassTileMap.centerOfTile(atColumn: column, row: row)
+                    addChild(panzer)
+                    placed = true
+                    print("\(panzer.name ?? "Panzer") wurde neu platziert bei \(panzer.position)")
+                }
+            }
+        }
+        
+        if !placed {
+            print("Konnte keine passende Position für \(panzer.name ?? "Panzer") finden")
+        }
+    }
+    
+    
+    
     // Lade die Tilemaps, ohne sie erneut zur Szene hinzuzufügen
     func loadTileMaps() {
         print("loadTileMaps: Versuche, Tilemaps zu laden")
@@ -699,7 +722,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if node.name == "shootButton" {
                     // Schießen, wenn eine Waffe ausgewählt ist
                     if let currentWeapon = currentWeapon {
-                        currentPanzer?.shootWeapon(named: currentWeapon.name)
+                        currentPanzer?.shootWeapon(named: currentWeapon.name, angle: aimAngle)
                     } else {
                         print("Bitte eine Waffe auswählen, bevor geschossen wird.")
                     }
@@ -761,29 +784,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func placeEnemyPanzers() {
         print("placeEnemyPanzers: Feind-Panzer werden platziert")
-
+        
         guard let grassTileMap = grassTileMap else {
             print("placeEnemyPanzers: Keine Grass-Tilemap vorhanden!")
             return
         }
-
+        
         var placedEnemyCount = 0
-
+        
         // Wiederhole die Platzierung, bis 4 Feindpanzer erfolgreich platziert wurden
         while placedEnemyCount < 4 {
             for enemyName in enemyPanzers {
                 var placed = false
                 var attempts = 0
-
+                
                 while !placed && attempts < 10 {
                     attempts += 1
                     let randomX = CGFloat.random(in: -self.size.width/2...self.size.width/2)
                     let randomY = CGFloat.random(in: -self.size.height/2...self.size.height/2)
                     let randomPosition = CGPoint(x: randomX, y: randomY)
-
+                    
                     let column = grassTileMap.tileColumnIndex(fromPosition: randomPosition)
                     let row = grassTileMap.tileRowIndex(fromPosition: randomPosition)
-
+                    
                     if let tileDefinition = grassTileMap.tileDefinition(atColumn: column, row: row),
                        let isSolid = tileDefinition.userData?.value(forKey: "solid") as? Bool, isSolid {
                         
@@ -814,17 +837,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         print("placeEnemyPanzers: Keine solide Kachel bei Position \(randomPosition), neuer Versuch")
                     }
                 }
-
+                
                 if placedEnemyCount >= 4 {
                     break // Beende die Schleife, wenn 4 Panzer platziert wurden
                 }
-
+                
                 if !placed {
                     print("placeEnemyPanzers: Konnte keine passende Position für Feind-Panzer \(enemyName) finden")
                 }
             }
         }
-
+        
         print("placeEnemyPanzers: Alle 4 Feind-Panzer erfolgreich platziert.")
     }
     // Kollisionserkennung

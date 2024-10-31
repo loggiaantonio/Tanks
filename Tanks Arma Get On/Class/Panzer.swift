@@ -90,12 +90,11 @@ class Panzer: SKSpriteNode {
         weaponMenuViewController = nil
     }
 
-    func shootWeapon(named weaponName: String) {
+    func shootWeapon(named weaponName: String, angle: CGFloat) {
         if hasFired {
             print("Es wurde bereits geschossen! Warte auf die nächste Runde.")
             return
         }
-
         hasFired = true
 
         guard var selectedWeapon = findWeaponByName(weaponName) else {
@@ -117,13 +116,21 @@ class Panzer: SKSpriteNode {
 
         self.parent?.addChild(bullet)
 
-        let speed: CGFloat = 200.0 * powerFactor
-        let dx = speed * cos(aimAngle)
-        let dy = speed * sin(aimAngle)
+        // Berechne `adjustedAngle` abhängig von der Blickrichtung des Panzers
+        let adjustedAngle = self.xScale == -1 ? .pi - angle : angle
 
+        // Setze die Rotation der Bullet, um visuell die Richtung anzuzeigen
+        bullet.zRotation = adjustedAngle
+
+        // Berechne die Geschwindigkeit in die entsprechende Richtung
+        let speed: CGFloat = 200.0 * powerFactor
+        let dx = speed * cos(adjustedAngle)
+        let dy = speed * sin(adjustedAngle)
+
+        // Wende den Impuls auf die Bullet an
         bullet.physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
 
-        print("Schießen mit Waffe: \(selectedWeapon.name) mit Power: \(powerFactor)")
+        print("Schießen mit Waffe: \(selectedWeapon.name) mit Winkel: \(adjustedAngle), dx: \(dx), dy: \(dy)")
 
         selectedWeapon.ammoCount -= 1
 
@@ -133,7 +140,6 @@ class Panzer: SKSpriteNode {
             self.endTurn()
         }
     }
-
     private func findWeaponByName(_ name: String) -> Weapon? {
         return availableWeapons.first { $0.name == name }
     }
