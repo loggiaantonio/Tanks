@@ -21,6 +21,7 @@
 		2363A3EA2C97400C00A95EDD /* TanksArmaDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2363A3E82C97400B00A95EDD /* TanksArmaDataModel.xcdatamodeld */; };
 		2363A3EC2C97404A00A95EDD /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363A3EB2C97404A00A95EDD /* PersistenceController.swift */; };
 		2363A3EE2C97445100A95EDD /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363A3ED2C97445100A95EDD /* StartView.swift */; };
+		2375524C2CD91BB000C9B814 /* chuck-norris_1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2375524B2CD91BB000C9B814 /* chuck-norris_1.mp3 */; };
 		2379A6572CC0444000B7D82A /* ChuckNorritsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379A6562CC0442C00B7D82A /* ChuckNorritsViewModel.swift */; };
 		2379A6592CC0446C00B7D82A /* ChuckNorisJoke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379A6582CC0445E00B7D82A /* ChuckNorisJoke.swift */; };
 		2379A65B2CC0465C00B7D82A /* ChuckNorrisJokeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379A65A2CC0464F00B7D82A /* ChuckNorrisJokeView.swift */; };
@@ -63,6 +64,7 @@
 		2363A3E92C97400C00A95EDD /* TanksArmaDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TanksArmaDataModel.xcdatamodel; sourceTree = "<group>"; };
 		2363A3EB2C97404A00A95EDD /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		2363A3ED2C97445100A95EDD /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		2375524B2CD91BB000C9B814 /* chuck-norris_1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "chuck-norris_1.mp3"; sourceTree = "<group>"; };
 		2379A6562CC0442C00B7D82A /* ChuckNorritsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChuckNorritsViewModel.swift; sourceTree = "<group>"; };
 		2379A6582CC0445E00B7D82A /* ChuckNorisJoke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChuckNorisJoke.swift; sourceTree = "<group>"; };
 		2379A65A2CC0464F00B7D82A /* ChuckNorrisJokeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChuckNorrisJokeView.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 			children = (
 				23B6C4EE2CAAD1CF00F2D8DB /* Rbsl.gif */,
 				2379A6672CC294D800B7D82A /* bulletHit.wav */,
+				2375524B2CD91BB000C9B814 /* chuck-norris_1.mp3 */,
 				231AEE842CD17FE900BEC91E /* Click.mp3 */,
 				2379A6682CC294D800B7D82A /* emptyWeapon.wav */,
 				2379A6692CC294D800B7D82A /* explosion.wav */,
@@ -319,6 +322,7 @@
 				23F6D4222C982ECD006087AF /* TileSet.sks in Resources */,
 				23C972012CA5B9250043CBB2 /* GameScene.sks in Resources */,
 				23B6C4EF2CAAD1CF00F2D8DB /* Rbsl.gif in Resources */,
+				2375524C2CD91BB000C9B814 /* chuck-norris_1.mp3 in Resources */,
 				23F6D4232C982ECD006087AF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

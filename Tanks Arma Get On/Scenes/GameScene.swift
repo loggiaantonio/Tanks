@@ -17,7 +17,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var grassTileMap: SKTileMapNode?      // Tilemap für die Kollision
     var cameraNode: SKCameraNode! // Kamera-Node
     
-    var selectedPanzers: [Panzer] = [] // Liste der ausgewählten Panzer
+    var selectedPanzers: [Panzer] = [] {
+        didSet {
+            print("selectedPanzers updated. Count: \(selectedPanzers.count)")
+            gameManager?.checkGameEnd()
+        }
+    }
     var currentPanzerIndex = 0 // Index des aktuell zu platzierenden Panzers
     var currentPanzer: Panzer? // Der Panzer, der gerade platziert wird
     
@@ -57,19 +62,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var bullet: SKSpriteNode? // Das Projektil (die Kugel)
     
-    var enemyPanzers: [String] = ["Enemy1", "Enemy2", "Enemy3", "Enemy4"]
+    var enemyPanzers: [String] = ["Enemy1", "Enemy2", "Enemy3", "Enemy4"] {
+        didSet {
+            print("enemyPanzers updated. Count: \(enemyPanzers.count)")
+            gameManager?.checkGameEnd()
+        }
+    }
     var currentTurnIndex = 0 // Der Index, der zwischen Spieler- und Gegnerpanzern wechselt
     
     var hasFired = false // Variable zum Überprüfen, ob bereits geschossen wurde
     
     var currentWeapon: Weapon?
     
-    var gameManager: GameManager?
+    var gameManager: GameManager!
+
     
     var enemyAIControllers: [EnemyAI] = [] // Liste der Gegner-KI-Instanzen
     
     var isPlacingPhase = true // Platzierungsphase aktivieren
     
+    var playerPanzerLabel: SKLabelNode!
+    var enemyPanzerLabel: SKLabelNode!
+    
+
     // Sound actions
     var moveSound: SKAction!
     var shotSound: SKAction!
@@ -104,7 +119,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     func endTurnAndManageNextAction() {
-        hasFired = false  // Reset `hasFired` für den nächsten Panzerzug
+        // Setze `hasFired` für alle Spielerpanzer zurück, damit sie im nächsten Zug feuern können
+        for panzer in selectedPanzers {
+            panzer.hasFired = false
+        }
+        
+        hasFired = false  // Zum Rücksetzen für den aktiven Panzer
         
         // Logik zum Wechseln des Zuges
         currentTurnIndex += 1
@@ -131,6 +151,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
+    }
+    
+    func showEndScreen(winner: String) {
+        let endScreenImage = SKSpriteNode(imageNamed: winner == "Player" ? "YouWin" : "YouLose")
+        endScreenImage.size = CGSize(width: self.size.width / 3, height: self.size.height / 3)
+        endScreenImage.position = CGPoint(x: 0, y: 0) // In der Mitte des Bildschirms
+        endScreenImage.zPosition = 20 // Über allen anderen Elementen
+        addChild(endScreenImage)
     }
     
     
@@ -257,6 +285,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
         
+        
         // Fügt den Pan-Gesten-Recognizer hinzu
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         view.addGestureRecognizer(panGesture)
@@ -277,9 +306,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Setze das contactDelegate, um Kollisionen zu überwachen
         physicsWorld.contactDelegate = self
+
+        // Labels zur Anzeige der Anzahl der Panzer hinzufügen
+        setupPanzerLabels()
+
         
         // Szene aus der GameScene.sks laden
         loadTileMaps()
+        
+        // Diese Zeile fügt die DeathTiles-Physik hinzu
+        setupDeathTilesPhysics()
+
         
         // Zeige den ersten Panzer an
         showNextPanzer()
@@ -345,6 +382,51 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Füge den Pfeil zur Szene hinzu
         addChild(currentArrow!)
     }
+    
+    func setupPanzerLabels() {
+        guard let cameraNode = camera else { return }
+
+        playerPanzerLabel = SKLabelNode(text: "\(selectedPanzers.count)")
+        playerPanzerLabel.fontSize = 24
+        playerPanzerLabel.fontName = "Arial-BoldMT"
+        playerPanzerLabel.fontColor = .green
+        playerPanzerLabel.position = CGPoint(x: -self.size.width / 2 + 50, y: self.size.height / 2 - 50)
+        playerPanzerLabel.zPosition = 10
+        cameraNode.addChild(playerPanzerLabel)
+        
+        enemyPanzerLabel = SKLabelNode(text: "\(enemyPanzers.count)")
+        enemyPanzerLabel.fontSize = 24
+        enemyPanzerLabel.fontName = "Arial-BoldMT"
+        enemyPanzerLabel.fontColor = .red
+        enemyPanzerLabel.position = CGPoint(x: -self.size.width / 2 + 100, y: self.size.height / 2 - 50)
+        enemyPanzerLabel.zPosition = 10
+        cameraNode.addChild(enemyPanzerLabel)
+    }
+    
+    func updatePanzerCountLabels() {
+        playerPanzerLabel.text = "\(selectedPanzers.count)"
+        enemyPanzerLabel.text = "\(enemyPanzers.count)"
+    }
+    
+    func panzerDestroyed(isPlayerPanzer: Bool) {
+        if isPlayerPanzer {
+            if let index = selectedPanzers.firstIndex(where: { $0.healthPoints <= 0 }) {
+                selectedPanzers.remove(at: index)
+            }
+        } else {
+            if let index = enemyPanzers.firstIndex(where: {
+                guard let enemyPanzerNode = childNode(withName: $0) as? Panzer else { return false }
+                return enemyPanzerNode.healthPoints <= 0
+            }) {
+                enemyPanzers.remove(at: index)
+            }
+        }
+        updatePanzerCountLabels() // Labels aktualisieren
+        
+        // Prüfen, ob das Spiel beendet ist
+        gameManager?.checkGameEnd()
+    }
+   
     
     func addBackButton() {
         
@@ -548,24 +630,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Methode zum Respawnen eines zerstörten Panzers in der Platzierungsphase
     func respawnPanzer(_ panzer: Panzer) {
         guard isPlacingPhase else { return }
-        
+
         print("Respawn für \(panzer.name ?? "Panzer") während der Platzierungsphase")
-        
-        // Zufällige Position innerhalb der Spielgrenzen finden
+
         var placed = false
         var attempts = 0
-        while !placed && attempts < 10 {
+        while !placed && attempts < 20 { // Erhöhe die Versuche, um sicherzustellen, dass eine passende Position gefunden wird
             attempts += 1
             let randomX = CGFloat.random(in: -self.size.width/2...self.size.width/2)
             let randomY = CGFloat.random(in: -self.size.height/2...self.size.height/2)
             let randomPosition = CGPoint(x: randomX, y: randomY)
-            
+
             if let grassTileMap = grassTileMap {
                 let column = grassTileMap.tileColumnIndex(fromPosition: randomPosition)
                 let row = grassTileMap.tileRowIndex(fromPosition: randomPosition)
-                
+
                 if let tileDefinition = grassTileMap.tileDefinition(atColumn: column, row: row),
-                   let isSolid = tileDefinition.userData?.value(forKey: "solid") as? Bool, isSolid {
+                   let isSolid = tileDefinition.userData?.value(forKey: "solid") as? Bool, isSolid,
+                   tileDefinition.userData?.value(forKey: "name") as? String != "death" { // Vermeide DeathTiles
+
                     panzer.position = grassTileMap.centerOfTile(atColumn: column, row: row)
                     addChild(panzer)
                     placed = true
@@ -573,7 +656,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
-        
+
         if !placed {
             print("Konnte keine passende Position für \(panzer.name ?? "Panzer") finden")
         }
@@ -615,62 +698,99 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     // Füge Kollisionen für die GrassTiles hinzu
     func setupGrassTilesPhysics() {
-        // Use guard let to safely unwrap grassTileMap
         guard let grassTileMap = grassTileMap else {
             print("setupGrassTilesPhysics: Fehler - GrassTiles ist nil")
             return
         }
         
-        // Iterate over all tiles in the grass tile map
         for row in 0..<grassTileMap.numberOfRows {
             for column in 0..<grassTileMap.numberOfColumns {
-                if let tileDefinition = grassTileMap.tileDefinition(atColumn: column, row: row) {
-                    // Check if the tile is marked as "solid"
-                    if let isSolid = tileDefinition.userData?.value(forKey: "solid") as? Bool, isSolid {
-                        let tileSize = grassTileMap.tileSize
-                        let tilePosition = grassTileMap.centerOfTile(atColumn: column, row: row)
-                        
-                        // Create a physics body that matches the shape of the tile
-                        let path = CGMutablePath()
-                        path.addRect(CGRect(x: -tileSize.width / 2, y: -tileSize.height / 2, width: tileSize.width, height: tileSize.height))
-                        
-                        let physicsBody = SKPhysicsBody(polygonFrom: path)
-                        physicsBody.isDynamic = false // The tile is static
-                        physicsBody.categoryBitMask = CollisionCategory.grassTile
-                        physicsBody.collisionBitMask = CollisionCategory.panzer // Adjust based on your needs
-                        physicsBody.contactTestBitMask = CollisionCategory.panzer
-                        
-                        // Create a shape node to visualize the physics body (optional)
-                        let tileNode = SKShapeNode(path: path)
-                        tileNode.position = tilePosition
-                        tileNode.zPosition = -0.1 // Slightly below the visual tile
-                        tileNode.fillColor = .clear // Make the shape node invisible
-                        tileNode.strokeColor = .clear
-                        tileNode.physicsBody = physicsBody
-                        
-                        // Optionally add the tile node to the scene for debugging purposes
-                        addChild(tileNode)
-                    }
+                if let tileDefinition = grassTileMap.tileDefinition(atColumn: column, row: row),
+                   let isSolid = tileDefinition.userData?.value(forKey: "solid") as? Bool, isSolid {
+                    
+                    let tileSize = grassTileMap.tileSize
+                    let tilePosition = grassTileMap.centerOfTile(atColumn: column, row: row)
+                    
+                    let path = CGMutablePath()
+                    path.addRect(CGRect(x: -tileSize.width / 2, y: -tileSize.height / 2, width: tileSize.width, height: tileSize.height))
+                    
+                    let physicsBody = SKPhysicsBody(polygonFrom: path)
+                    physicsBody.isDynamic = false
+                    physicsBody.categoryBitMask = CollisionCategory.grassTile
+                    physicsBody.contactTestBitMask = CollisionCategory.bullet
+                    
+                    let tileNode = SKShapeNode(path: path)
+                    tileNode.position = tilePosition
+                    tileNode.zPosition = -0.1
+                    tileNode.fillColor = .clear
+                    tileNode.strokeColor = .clear
+                    tileNode.physicsBody = physicsBody
+                    
+                    addChild(tileNode)
                 }
             }
         }
     }
     
+    func setupDeathTilesPhysics() {
+        guard let deathTileMap = childNode(withName: "DeathTiles") as? SKTileMapNode else {
+            print("setupDeathTilesPhysics: Fehler - DeathTiles ist nil")
+            return
+        }
+
+        // Definiere eine Bedingung, um nur bestimmte Bereiche der DeathTiles zu berücksichtigen (z. B. die unteren Reihen)
+        let rowsToConsider = 0..<deathTileMap.numberOfRows // Passe den Bereich an, falls nötig
+
+        for row in rowsToConsider {
+            for column in 0..<deathTileMap.numberOfColumns {
+                if let tileDefinition = deathTileMap.tileDefinition(atColumn: column, row: row) {
+                    // Prüfe, ob die Kachel eine DeathTile ist (falls sie eine bestimmte Bedingung erfüllen soll)
+                    if let tileName = tileDefinition.userData?.value(forKey: "name") as? String, tileName == "death" {
+                        let tileSize = deathTileMap.tileSize
+                        let tilePosition = deathTileMap.centerOfTile(atColumn: column, row: row)
+
+                        let path = CGMutablePath()
+                        path.addRect(CGRect(x: -tileSize.width / 2, y: -tileSize.height / 2, width: tileSize.width, height: tileSize.height))
+
+                        let physicsBody = SKPhysicsBody(polygonFrom: path)
+                        physicsBody.isDynamic = false
+                        physicsBody.categoryBitMask = CollisionCategory.grassTile // Verwende eine separate Kategorie, falls nötig
+                        physicsBody.contactTestBitMask = CollisionCategory.panzer | CollisionCategory.enemyPanzer
+                        physicsBody.collisionBitMask = CollisionCategory.panzer | CollisionCategory.enemyPanzer
+                        physicsBody.affectedByGravity = false
+
+                        let deathTileNode = SKShapeNode(path: path)
+                        deathTileNode.position = tilePosition
+                        deathTileNode.zPosition = -0.1
+                        deathTileNode.fillColor = .clear
+                        deathTileNode.strokeColor = .clear
+                        deathTileNode.physicsBody = physicsBody
+
+                        addChild(deathTileNode)
+                        print("setupDeathTilesPhysics: DeathTile bei Position \(tilePosition) mit Physik hinzugefügt")
+                    }
+                }
+            }
+        }
+    }
     // Zeige den nächsten Panzer, falls es noch Panzer gibt
     func showNextPanzer() {
         if currentPanzerIndex < selectedPanzers.count {
             let panzer = selectedPanzers[currentPanzerIndex] // Hole das Panzer-Objekt
             print("showNextPanzer: Zeige Panzer \(panzer.name ?? "") an") // Verwende den Namen des Panzer-Objekts, falls vorhanden
             
-            panzer.size = CGSize(width: 70, height: 70) // Panzerskalierung auf eine kleinere Größe
-            panzer.position = CGPoint(x: -50, y: -50) // Startposition in der Mitte
-            panzer.zPosition = 0 // Über der Map
-            
-            // Der Panzer-Name ist bereits gesetzt, daher keine erneute Zuweisung nötig
+            // Stelle sicher, dass der Panzer noch keinen `parent` hat, bevor er hinzugefügt wird
+            if panzer.parent == nil {
+                panzer.size = CGSize(width: 70, height: 70) // Panzerskalierung auf eine kleinere Größe
+                panzer.position = CGPoint(x: -50, y: -50) // Startposition in der Mitte
+                panzer.zPosition = 0 // Über der Map
+                addChild(panzer) // Füge den Panzer nur hinzu, wenn er keinen parent hat
+                print("showNextPanzer: Panzer wurde hinzugefügt")
+            } else {
+                print("showNextPanzer: Panzer ist bereits in der Szene, kein erneutes Hinzufügen")
+            }
             
             currentPanzer = panzer
-            addChild(panzer)
-            print("showNextPanzer: Panzer wurde hinzugefügt")
             showArrowAboveCurrentPanzer()
         } else {
             // Wenn alle Panzer platziert sind, beginne das Spiel
@@ -784,111 +904,210 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func placeEnemyPanzers() {
         print("placeEnemyPanzers: Feind-Panzer werden platziert")
-        
+
         guard let grassTileMap = grassTileMap else {
             print("placeEnemyPanzers: Keine Grass-Tilemap vorhanden!")
             return
         }
-        
+
         var placedEnemyCount = 0
-        
-        // Wiederhole die Platzierung, bis 4 Feindpanzer erfolgreich platziert wurden
+
+        // Definiere die Begrenzungen für die Platzierung als CGFloat
+           let xRange: ClosedRange<CGFloat> = -640.0...800.0  // Passe diese Werte basierend auf deinen Punkten an
+           let yRange: ClosedRange<CGFloat> = -240.0...750.0      // Passe diese Werte basierend auf deinen Punkten an
+
+
         while placedEnemyCount < 4 {
             for enemyName in enemyPanzers {
                 var placed = false
                 var attempts = 0
-                
-                while !placed && attempts < 10 {
+
+                while !placed && attempts < 20 {
                     attempts += 1
-                    let randomX = CGFloat.random(in: -self.size.width/2...self.size.width/2)
-                    let randomY = CGFloat.random(in: -self.size.height/2...self.size.height/2)
+                    let randomX = CGFloat.random(in: xRange)
+                    let randomY = CGFloat.random(in: yRange)
                     let randomPosition = CGPoint(x: randomX, y: randomY)
-                    
+
                     let column = grassTileMap.tileColumnIndex(fromPosition: randomPosition)
                     let row = grassTileMap.tileRowIndex(fromPosition: randomPosition)
-                    
+
                     if let tileDefinition = grassTileMap.tileDefinition(atColumn: column, row: row),
-                       let isSolid = tileDefinition.userData?.value(forKey: "solid") as? Bool, isSolid {
+                       let isSolid = tileDefinition.userData?.value(forKey: "solid") as? Bool, isSolid,
+                       tileDefinition.userData?.value(forKey: "name") as? String != "death" {  // Vermeide DeathTiles
                         
                         let enemyPanzer = Panzer(imageNamed: enemyName, isEnemy: true)
                         enemyPanzer.size = CGSize(width: 70, height: 70)
                         enemyPanzer.position = grassTileMap.centerOfTile(atColumn: column, row: row)
-                        
+
                         enemyPanzer.physicsBody = SKPhysicsBody(rectangleOf: enemyPanzer.size)
                         enemyPanzer.physicsBody?.isDynamic = true
-                        enemyPanzer.physicsBody?.allowsRotation = false // Rotation für gegnerische Panzer deaktivieren
-                        
+                        enemyPanzer.physicsBody?.allowsRotation = false
+
                         enemyPanzer.physicsBody?.categoryBitMask = CollisionCategory.enemyPanzer
                         enemyPanzer.physicsBody?.collisionBitMask = CollisionCategory.bullet | CollisionCategory.grassTile
                         enemyPanzer.physicsBody?.contactTestBitMask = CollisionCategory.bullet
                         enemyPanzer.physicsBody?.restitution = 0.0
-                        
+
                         enemyPanzer.name = enemyName
                         addChild(enemyPanzer)
                         print("placeEnemyPanzers: Feind-Panzer \(enemyName) an Position \(enemyPanzer.position) platziert")
-                        
-                        // Erstelle und füge die EnemyAI-Instanz zur Liste hinzu
+
                         let enemyAI = EnemyAI(enemyPanzer: enemyPanzer, scene: self)
                         enemyAIControllers.append(enemyAI)
-                        
+
                         placed = true
-                        placedEnemyCount += 1 // Erhöhe die Anzahl der erfolgreich platzierten Panzer
+                        placedEnemyCount += 1
                     } else {
-                        print("placeEnemyPanzers: Keine solide Kachel bei Position \(randomPosition), neuer Versuch")
+                        print("placeEnemyPanzers: Keine solide Kachel oder DeathTile bei Position \(randomPosition), neuer Versuch")
                     }
                 }
-                
+
                 if placedEnemyCount >= 4 {
-                    break // Beende die Schleife, wenn 4 Panzer platziert wurden
+                    break
                 }
-                
+
                 if !placed {
                     print("placeEnemyPanzers: Konnte keine passende Position für Feind-Panzer \(enemyName) finden")
                 }
             }
         }
-        
+
         print("placeEnemyPanzers: Alle 4 Feind-Panzer erfolgreich platziert.")
+    
+        startPlayerPlacement()
     }
+    
+    func startPlayerPlacement() {
+        print("startPlayerPlacement: Beginn der Platzierung für Spielerpanzer")
+
+        isPlacingPhase = true
+        currentPanzerIndex = 0 // Start mit dem ersten Spielerpanzer
+        showNextPanzer() // Zeigt den ersten Spielerpanzer zur Platzierung an
+    }
+    
+    
     // Kollisionserkennung
     func didBegin(_ contact: SKPhysicsContact) {
+        print("Kollision erkannt")
+
         let bodyA = contact.bodyA
         let bodyB = contact.bodyB
-        
-        if bodyA.node == bullet || bodyB.node == bullet {
-            let targetNode = (bodyA.node == bullet) ? bodyB.node : bodyA.node
+
+        // Bestimme die Bullet und das Ziel-Node
+        let bulletNode = (bodyA.categoryBitMask == CollisionCategory.bullet ? bodyA.node : (bodyB.categoryBitMask == CollisionCategory.bullet ? bodyB.node : nil))
+        let targetNode = (bulletNode == bodyA.node) ? bodyB.node : bodyA.node
+
+        // Überprüfen, ob eine Bullet beteiligt ist und das Ziel vorhanden ist
+        if let bulletNode = bulletNode, let targetNode = targetNode {
             
-            if let targetPanzer = targetNode as? SKSpriteNode,
-               targetPanzer.physicsBody?.categoryBitMask == CollisionCategory.enemyPanzer {
-                bullet?.removeFromParent()
-            } else {
-                bullet?.removeFromParent()
+            // Überprüfe, ob das Ziel der Absender der Bullet ist, um Selbsttreffer zu vermeiden
+            if let bulletOwner = bulletNode.userData?.value(forKey: "owner") as? Panzer, bulletOwner == targetNode as? Panzer {
+                print("Panzer hat seine eigene Bullet getroffen – Kollision ignoriert.")
+                return
+            }
+
+            // Entferne die Bullet sofort, um Mehrfachkollisionen zu vermeiden
+            bulletNode.removeFromParent()
+            
+            // Überprüfen, ob das Ziel ein Panzer ist
+            if let targetPanzer = targetNode as? Panzer,
+               let damage = bulletNode.userData?.value(forKey: "damage") as? Int {
+                print("Treffer auf Panzer erkannt. Schaden: \(damage)")
+
+                // Wende den Schaden auf den Panzer an
+                targetPanzer.applyDamage(damage)
+
+                // Treffer-Effekte und Schimmer-Effekt zur Anzeige des Treffers
+                targetPanzer.run(SKAction.playSoundFileNamed("bulletHit.wav", waitForCompletion: false))
+
+                let shimmerEffect = SKAction.sequence([
+                    SKAction.group([
+                        SKAction.scale(to: 1.1, duration: 0.1),
+                        SKAction.colorize(with: .yellow, colorBlendFactor: 0.5, duration: 0.1)
+                    ]),
+                    SKAction.wait(forDuration: 0.1),
+                    SKAction.group([
+                        SKAction.scale(to: 1.0, duration: 0.1),
+                        SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.1)
+                    ])
+                ])
+                targetPanzer.run(shimmerEffect)
             }
             
-            bullet?.run(bulletHitSound)
+            // Treffer auf ein Gras-Tile
+            else if targetNode.physicsBody?.categoryBitMask == CollisionCategory.grassTile {
+                print("Treffer auf Gras-Tile erkannt")
+
+                if let tileUserData = targetNode.userData,
+                   tileUserData.value(forKey: "solid") as? Bool == true {
+                    print("Gras-Tile mit `solid` markiert getroffen!")
+
+                    // Position der Kollision für die Explosion ermitteln
+                    let collisionPosition = targetNode.position
+                    showExplosion(at: collisionPosition)
+                    removeGrassTile(at: collisionPosition)
+                } else {
+                    print("Gras-Tile getroffen, aber nicht als `solid` markiert.")
+                }
+                // Check for game end after applying damage or destroying a tank
+                gameManager?.checkGameEnd()
+            }
             
-            // Beende den Zug
-            endTurnAndManageNextAction()
+            // Kollision mit einem DeathTile überprüfen
+            else if let panzerNode = targetNode as? Panzer {
+                if let tileUserData = (bodyA.node?.userData ?? bodyB.node?.userData),
+                   tileUserData.value(forKey: "name") as? String == "death" {
+                    print("Panzer \(panzerNode.name ?? "Unknown") hat ein DeathTile getroffen und wird zerstört.")
+
+                    // Panzer zerstören und entfernen
+                    panzerNode.removeFromParent()
+
+                    if isPlacingPhase {
+                        // Respawn-Logik für Platzierungsphase
+                        respawnPanzer(panzerNode)
+                    } else {
+                        // Entferne Panzer aus den Listen und aktualisiere das Spiel
+                        if panzerNode.isEnemy {
+                            enemyPanzers.removeAll { $0 == panzerNode.name }
+                        } else {
+                            selectedPanzers.removeAll { $0 == panzerNode }
+                        }
+                        updatePanzerCountLabels()
+                        gameManager?.checkGameEnd()
+                    }
+                }
+            }
         }
     }
-    
-    
-    
-    
     // Explosion anzeigen
     func showExplosion(at position: CGPoint) {
-        let explosion = SKSpriteNode(imageNamed: "tank_explosion2") // Nutze dein Bild für die Explosion
+        let explosion = SKSpriteNode(imageNamed: "tank_explosion2") // Nutze das Bild für die Explosion
         explosion.position = position
         explosion.zPosition = 10
         explosion.size = CGSize(width: 60, height: 60)
         addChild(explosion)
         
-        // Entferne die Explosion nach einer kurzen Zeit (0.5 Sekunden)
+        // Entferne die Explosion nach kurzer Zeit
         let removeAction = SKAction.sequence([SKAction.wait(forDuration: 0.5), SKAction.removeFromParent()])
         explosion.run(removeAction)
-        explosion.run(explosionSound) // Play explosion sound
-        
+        explosion.run(explosionSound) // Spiele den Explosionssound
     }
+    
+    func removeGrassTile(at position: CGPoint) {
+        guard let grassTileMap = grassTileMap else { return }
+        
+        let column = grassTileMap.tileColumnIndex(fromPosition: position)
+        let row = grassTileMap.tileRowIndex(fromPosition: position)
+        
+        // Entferne das Gras-Tile, falls es vorhanden ist
+        if let tileDefinition = grassTileMap.tileDefinition(atColumn: column, row: row) {
+            grassTileMap.setTileGroup(nil, forColumn: column, row: row)
+            print("removeGrassTile: Gras-Tile an Position \(position) entfernt")
+        } else {
+            print("removeGrassTile: Kein Tile an Position \(position) gefunden oder Tile nicht `solid1`")
+        }
+    }
+    
     
     // Pinch-Geste zum Zoomen
     @objc func handlePinch(_ gesture: UIPinchGestureRecognizer) {

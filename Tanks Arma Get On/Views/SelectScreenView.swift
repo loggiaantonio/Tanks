@@ -51,10 +51,10 @@ struct SelectScreenView: View {
                                     ZStack {
                                         LinearGradient(gradient: Gradient(colors: [Color.gray, Color.black.opacity(0.7)]),
                                                        startPoint: .topLeading, endPoint: .bottomTrailing)
-                                            .frame(width: 70, height: 70)
-                                            .cornerRadius(10)
-                                            .scaleEffect(selectedPanzers.contains(panzer) ? 1.1 : 1.0)
-                                            .animation(.easeInOut(duration: 0.2), value: selectedPanzers.contains(panzer))
+                                        .frame(width: 70, height: 70)
+                                        .cornerRadius(10)
+                                        .scaleEffect(selectedPanzers.contains(panzer) ? 1.1 : 1.0)
+                                        .animation(.easeInOut(duration: 0.2), value: selectedPanzers.contains(panzer))
                                         
                                         Image(panzer)
                                             .resizable()
@@ -73,8 +73,8 @@ struct SelectScreenView: View {
                                 ZStack {
                                     LinearGradient(gradient: Gradient(colors: [Color.gray, Color.black.opacity(0.7)]),
                                                    startPoint: .topLeading, endPoint: .bottomTrailing)
-                                        .frame(width: 70, height: 70)
-                                        .cornerRadius(10)
+                                    .frame(width: 70, height: 70)
+                                    .cornerRadius(10)
                                     
                                     Image(systemName: "questionmark")
                                         .resizable()
@@ -115,7 +115,7 @@ struct SelectScreenView: View {
                                     .padding()
                             }
                             .simultaneousGesture(TapGesture().onEnded {
-                                playClickSound() // Sound abspielen
+                                playClickSound2() // Sound abspielen
                             })
                             
                             NavigationLink(destination: FavoritesListView()) {
@@ -157,7 +157,7 @@ struct SelectScreenView: View {
                 .padding(.trailing, 0)
             }
             .alert(isPresented: $showInfoAlert) {
-                Alert(title: Text("Information"), message: Text("Select up to 4 tanks to continue. You can also use the random selection"), dismissButton:
+                Alert(title: Text("Information"), message: Text("Select up to 4 tanks to continue. You can also use the random selection. If you click on the Chuck Norris icon, you will see jokes every time and the star icon will contain your favorite Chuck Norris jokes!."), dismissButton:
                         .default(Text("OK")))
                 
             }
@@ -184,6 +184,22 @@ struct SelectScreenView: View {
     
     func playClickSound() {
         guard let url = Bundle.main.url(forResource: "Click", withExtension: "mp3") else {
+            print("Error: Sound file not found.")
+            return
+        }
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer?.volume = 0.2 // Lautstärke auf 20% gesetzt
+            audioPlayer?.play()
+        } catch {
+            print("Error: Could not play sound file.")
+        }
+    }
+    
+    
+    func playClickSound2() {
+        guard let url = Bundle.main.url(forResource: "chuck-norris_1", withExtension: "mp3") else {
             print("Error: Sound file not found.")
             return
         }

@@ -9,15 +9,11 @@ class Panzer: SKSpriteNode {
     var bulletHitSound: SKAction
     var explosionSound: SKAction
     
-    // Waffenmenü View-Controller, um die Anzeige zu steuern
     var weaponMenuViewController: UIViewController?
-    
-    // Eigenschaften für Schießen und Zielen
     var hasFired = false
-    var aimAngle: CGFloat = 0.0 // Standardwert für Zielwinkel
-    var powerFactor: CGFloat = 1.0 // Standardwert für Schusskraft
+    var aimAngle: CGFloat = 0.0
+    var powerFactor: CGFloat = 1.0
     
-    // Waffenliste, die diesem Panzer zur Verfügung steht
     var availableWeapons: [Weapon] = [
         Weapon(name: "Bullet1", image: "tank_bullet1", damage: 10, ammoCount: 10),
         Weapon(name: "Bullet2", image: "tank_bullet2", damage: 20, ammoCount: 8),
@@ -28,7 +24,7 @@ class Panzer: SKSpriteNode {
     ]
     
     init(imageNamed: String, isEnemy: Bool) {
-        self.healthPoints = isEnemy ? 100 : 150
+        self.healthPoints = isEnemy ? 10 : 150
         self.isEnemy = isEnemy
         self.moveSound = SKAction.playSoundFileNamed("TankMove.mp3", waitForCompletion: false)
         self.shotSound = SKAction.playSoundFileNamed("shot.mp3", waitForCompletion: false)
@@ -50,29 +46,122 @@ class Panzer: SKSpriteNode {
     func setupPhysics() {
         self.physicsBody = SKPhysicsBody(rectangleOf: self.size, center: CGPoint(x: 0, y: self.size.height / 4))
         self.physicsBody?.isDynamic = true
-        self.physicsBody?.categoryBitMask = isEnemy ? CollisionCategory.enemyPanzer : CollisionCategory.panzer
-        self.physicsBody?.collisionBitMask = CollisionCategory.grassTile
-        self.physicsBody?.contactTestBitMask = CollisionCategory.bullet | CollisionCategory.grassTile
+        self.physicsBody?.affectedByGravity = true
+        self.physicsBody?.mass = 10.0
+        self.physicsBody?.density = 1.0
         self.physicsBody?.restitution = 0.0
+        self.physicsBody?.categoryBitMask = isEnemy ? CollisionCategory.enemyPanzer : CollisionCategory.panzer
+        self.physicsBody?.collisionBitMask = CollisionCategory.grassTile | CollisionCategory.bullet
+        self.physicsBody?.contactTestBitMask = CollisionCategory.bullet | CollisionCategory.grassTile
     }
     
+    func applyDamage(_ damage: Int) {
+        healthPoints -= damage
+        updateHealthLabel()
+        print("Panzer \(self.name ?? "Unknown") hat \(damage) Schaden erhalten. Verbleibende HP: \(healthPoints)")
+
+        let shimmerEffect = SKAction.sequence([
+            SKAction.group([
+                SKAction.scale(to: 1.1, duration: 0.1),
+                SKAction.colorize(with: .red, colorBlendFactor: 0.5, duration: 0.1)
+            ]),
+            SKAction.wait(forDuration: 0.1),
+            SKAction.group([
+                SKAction.scale(to: 1.0, duration: 0.1),
+                SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.1)
+            ])
+        ])
+        self.run(shimmerEffect)
+
+        if healthPoints <= 0 {
+                print("Panzer \(self.name ?? "Unknown") wurde zerstört")
+                destroy()
+            }
+
+            // Check for game end after applying damage
+            if let gameScene = self.scene as? GameScene {
+                if let gameManager = gameScene.gameManager {
+                    print("Rufe checkGameEnd nach Schadensanwendung auf")
+                    gameManager.checkGameEnd()
+                } else {
+                    print("Fehler: gameManager ist nil in GameScene")
+                }
+            } else {
+                print("Fehler: Konnte GameScene nicht finden")
+            }
+        }
+    
+    func destroy() {
+        self.run(explosionSound)
+
+        if let gameScene = self.scene as? GameScene {
+            gameScene.showExplosion(at: self.position)
+            
+            if isEnemy {
+                gameScene.enemyPanzers.removeAll { $0 == self.name }
+                print("Enemy Panzer \(self.name ?? "unbekannt") entfernt. Verbleibende Gegner: \(gameScene.enemyPanzers.count)")
+            } else {
+                gameScene.selectedPanzers.removeAll { $0 == self }
+                print("Spieler Panzer \(self.name ?? "unbekannt") entfernt. Verbleibende Spieler: \(gameScene.selectedPanzers.count)")
+            }
+
+            gameScene.updatePanzerCountLabels()
+            
+            // Check for game end after destroying a tank
+            print("Rufe checkGameEnd nach Zerstörung eines Panzers auf")
+            gameScene.gameManager?.checkGameEnd()
+        } else {
+            print("Konnte Panzer nicht aus Arrays entfernen: gameScene ist nil")
+        }
+
+        self.removeFromParent()
+        }
+
+    func showExplosion() {
+        let explosion = SKSpriteNode(imageNamed: "tank_explosion4")
+        explosion.position = self.position
+        explosion.zPosition = 10
+        explosion.size = CGSize(width: 100, height: 100)
+        self.parent?.addChild(explosion)
+
+        let removeExplosion = SKAction.sequence([
+            SKAction.wait(forDuration: 0.5),
+            SKAction.removeFromParent()
+        ])
+        explosion.run(removeExplosion)
+    }
+    
+    private func addHealthLabel() {
+        let healthLabel = SKLabelNode(text: "\(healthPoints)")
+        healthLabel.fontSize = 16
+        healthLabel.fontName = "Arial-BoldMT"
+        healthLabel.fontColor = isEnemy ? .red : .green
+        healthLabel.position = CGPoint(x: 0, y: self.size.height / 2 + 20)
+        healthLabel.zPosition = 5
+        healthLabel.name = "healthLabel"
+        
+        self.addChild(healthLabel)
+    }
+    
+    private func updateHealthLabel() {
+        guard let healthLabel = self.childNode(withName: "healthLabel") as? SKLabelNode else { return }
+        healthLabel.text = "\(healthPoints)"
+    }
     
     func showWeaponMenu(in view: SKView) {
-        // Casten Sie scene auf GameScene
         guard let gameScene = self.scene as? GameScene else {
             print("Fehler: Scene ist nicht vom Typ GameScene.")
             return
         }
 
         let weaponMenu = WeaponMenuView(weapons: availableWeapons) { selectedWeapon in
-            gameScene.setCurrentWeapon(selectedWeapon) // Waffe in der GameScene setzen
+            gameScene.setCurrentWeapon(selectedWeapon)
             self.hideWeaponMenu()
         }
 
         let hostingController = UIHostingController(rootView: weaponMenu)
-        hostingController.view.backgroundColor = UIColor.clear // Transparenter Hintergrund
+        hostingController.view.backgroundColor = UIColor.clear
         
-        // Setze das Menü über den Panzer, zentriert und festgesetzt
         hostingController.view.frame = CGRect(
             x: view.bounds.width / 4,
             y: view.bounds.height / 2 - 75,
@@ -106,40 +195,39 @@ class Panzer: SKSpriteNode {
         let bullet = SKSpriteNode(imageNamed: bulletImageName)
         bullet.size = CGSize(width: 50, height: 20)
         bullet.position = CGPoint(x: self.position.x, y: self.position.y + self.size.height / 2)
+        bullet.zPosition = 10
 
+        print("Bullet erstellt und abgefeuert: \(bulletImageName)")
+
+        bullet.userData = ["damage": selectedWeapon.damage]
+        
         bullet.physicsBody = SKPhysicsBody(rectangleOf: bullet.size)
         bullet.physicsBody?.isDynamic = true
         bullet.physicsBody?.categoryBitMask = CollisionCategory.bullet
-        bullet.physicsBody?.collisionBitMask = CollisionCategory.grassTile | CollisionCategory.enemyPanzer
-        bullet.physicsBody?.contactTestBitMask = CollisionCategory.enemyPanzer | CollisionCategory.grassTile
+        bullet.physicsBody?.collisionBitMask = CollisionCategory.grassTile | CollisionCategory.panzer
+        bullet.physicsBody?.contactTestBitMask = CollisionCategory.grassTile |  CollisionCategory.enemyPanzer
         bullet.physicsBody?.usesPreciseCollisionDetection = true
 
         self.parent?.addChild(bullet)
+        if let scene = self.scene as? GameScene {
+            scene.bullet = bullet
+        }
 
-        // Berechne `adjustedAngle` abhängig von der Blickrichtung des Panzers
         let adjustedAngle = self.xScale == -1 ? .pi - angle : angle
-
-        // Setze die Rotation der Bullet, um visuell die Richtung anzuzeigen
         bullet.zRotation = adjustedAngle
 
-        // Berechne die Geschwindigkeit in die entsprechende Richtung
         let speed: CGFloat = 200.0 * powerFactor
         let dx = speed * cos(adjustedAngle)
         let dy = speed * sin(adjustedAngle)
 
-        // Wende den Impuls auf die Bullet an
         bullet.physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
 
         print("Schießen mit Waffe: \(selectedWeapon.name) mit Winkel: \(adjustedAngle), dx: \(dx), dy: \(dy)")
-
+        
         selectedWeapon.ammoCount -= 1
-
         bullet.run(shotSound)
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.endTurn()
-        }
     }
+    
     private func findWeaponByName(_ name: String) -> Weapon? {
         return availableWeapons.first { $0.name == name }
     }
@@ -158,44 +246,5 @@ class Panzer: SKSpriteNode {
         self.position.x += 10
         self.xScale = 1
         self.run(moveSound)
-    }
-    
-    func applyDamage(_ damage: Int) {
-        healthPoints -= damage
-        updateHealthLabel()
-        
-        if healthPoints <= 0 {
-            destroy()
-        }
-    }
-
-    func destroy() {
-        self.run(explosionSound)
-        self.removeFromParent()
-        
-        if let gameScene = self.scene as? GameScene, gameScene.isPlacingPhase {
-            // Neu platzieren, falls wir uns in der Platzierungsphase befinden
-            gameScene.respawnPanzer(self)
-        } else {
-            print("\(self.name ?? "Panzer") wurde zerstört und wird nicht respawned, da das Spiel bereits gestartet ist.")
-        }
-    
-    }
-    
-    private func addHealthLabel() {
-        let healthLabel = SKLabelNode(text: "\(healthPoints)")
-        healthLabel.fontSize = 16
-        healthLabel.fontName = "Arial-BoldMT"
-        healthLabel.fontColor = isEnemy ? .red : .green
-        healthLabel.position = CGPoint(x: 0, y: self.size.height / 2 + 20)
-        healthLabel.zPosition = 5
-        healthLabel.name = "healthLabel"
-        
-        self.addChild(healthLabel)
-    }
-    
-    private func updateHealthLabel() {
-        guard let healthLabel = self.childNode(withName: "healthLabel") as? SKLabelNode else { return }
-        healthLabel.text = "\(healthPoints)"
     }
 }
